@@ -1,11 +1,12 @@
 import './App.css';
+import Navbar_component from "./Components/Navbar_component";
 
 function App() {
-  return (
-    <>
-      <h1>JCars</h1>
-    </>
-  );
+    return (
+        <>
+            <Navbar_component/>
+        </>
+    );
 }
 
 export default App;
