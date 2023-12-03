@@ -1,0 +1,20 @@
+{
+  "service": [
+    {
+      "name": "Transfery lotniskowe",
+      "src": "https://images.pexels.com/photos/3647693/pexels-photo-3647693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Wynajem aut klasy premium z kierowcą",
+      "src": "https://images.pexels.com/photos/19223567/pexels-photo-19223567/free-photo-of-bmw-x3-on-a-road-in-autumnal-forest.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Wynajem limuzyny z kierowcą",
+      "src": "https://images.pexels.com/photos/18029642/pexels-photo-18029642/free-photo-of-row-of-bmw-series-7.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Wynajem samochodów do ślubu",
+      "src": "https://images.pexels.com/photos/18456004/pexels-photo-18456004/free-photo-of-bride-sitting-in-a-car.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    }
+  ]
+}
