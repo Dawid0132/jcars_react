@@ -1,0 +1,58 @@
+{
+  "cars": [
+    {
+      "name": "BMW Series 5 G30 520d X-Drive",
+      "year": "2021",
+      "model": "G30",
+      "category": "Diesel",
+      "carplay": true,
+      "klimatyzacja": true,
+      "podgrzewane siedzenia": true,
+      "podgrzewana kierownica": true,
+      "engine": "2.0 190KM",
+      "speed-up-to-100km": "3.2/ 0-100",
+      "engine-capacity": "3000",
+      "lights": "LED",
+      "power": "190KM",
+      "gearbox": "automatyczna",
+      "src": "https://blackcars.pl/media/cache/f5/95/f595e61069efa2ce41a5e46a84d77edf.jpg",
+      "price": "283"
+    },
+    {
+      "name": "Mercedes-Benz klasa E220d Exclusive",
+      "year": "2021",
+      "model": "G30",
+      "category": "Diesel",
+      "carplay": true,
+      "klimatyzacja": true,
+      "podgrzewane siedzenia": true,
+      "podgrzewana kierownica": true,
+      "engine": "2.0 190KM",
+      "speed-up-to-100km": "3.2/ 0-100",
+      "engine-capacity": "3000",
+      "lights": "LED",
+      "power": "190KM",
+      "gearbox": "automatyczna",
+      "src": "https://blackcars.pl/media/cache/c9/c3/c9c38b2002f140d75c18385693dc0c8a.jpg",
+      "price": "283"
+    },
+    {
+      "name": "BMW X3 Facelift",
+      "year": "2021",
+      "model": "G30",
+      "category": "Diesel",
+      "carplay": true,
+      "klimatyzacja": true,
+      "podgrzewane siedzenia": true,
+      "podgrzewana kierownica": true,
+      "engine": "2.0 190KM",
+      "speed-up-to-100km": "3.2/ 0-100",
+      "engine-capacity": "3000",
+      "lights": "LED",
+      "power": "190KM",
+      "gearbox": "automatyczna",
+      "src": "https://blackcars.pl/media/cache/46/93/4693d65e280e9ef53fd84fc11303a9c4.jpg",
+      "price": "283"
+    }
+  ]
+}

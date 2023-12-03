@@ -1,0 +1,22 @@
+{
+  "promotions": [
+    {
+      "title": "Bak paliwa gratis",
+      "description": "Przy wynajmie na minimum 3 miesięcy."
+    },
+    {
+      "title": "2+1 na weekend",
+      "description": "*szczegóły promocji u konsultantów"
+    },
+    {
+      "title": "Karty podarunkowe na wynajem i usługi",
+      "description": "Certyfikat jest ważny 1 rok. Oprócz możliwości codziennego poruszania się autami premium, oferujemy Ci także usługi przewozów VIP. "
+    },
+    {
+      "title": "Zapisz się na newsletter i dostań zniżkę 10%",
+      "placeholder": "email",
+      "text": "Zapisz się",
+      "src": "https://images.pexels.com/photos/19076555/pexels-photo-19076555/free-photo-of-bmw-i8-in-halloween-pumpkin-orange-color.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    }
+  ]
+}

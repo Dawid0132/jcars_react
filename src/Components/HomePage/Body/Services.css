@@ -1,0 +1,20 @@
+
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+#promotion_input::placeholder {
+    color: white;
+}
+
+#promotion_input:focus {
+    outline: none;
+    border:none;
+}
+
+#promotion_input {
+    color: white;
+    border: none;
+    outline: none;
+}

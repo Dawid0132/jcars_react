@@ -1,0 +1,28 @@
+{
+  "benefits": [
+    {
+      "title": "Bogata flota",
+      "description": "Nasza flota samochodów nieustannie się zwiększa, aby zapewnić naszym klientom odpowiedni pojazd."
+    },
+    {
+      "title": "Wynajem z NISKĄ kaucją",
+      "description": "Zaplać online kartą kredytową i wynajmij samochód z niską kaucją"
+    },
+    {
+      "title": "Podstawianie aut",
+      "description": "Możemy dla Twojej wygody zawrzeć umowę na odległość, a następnie podstawić Ci auto.Możemy dla Twojej wygody zawrzeć umowę na odległość, a następnie podstawić Ci auto."
+    },
+    {
+      "title": "Klarowna umowa",
+      "description": "W naszych umowach nie znajdziesz żadnych kruczków prawnych, ani haczyków zapisanych drobnym druczkiem."
+    },
+    {
+      "title": "Perfekcyjne auta",
+      "description": "Systematycznie dbamy o stan techniczny naszej floty, myjemy i dezynfekujemy auta po każdym wynajmie."
+    },
+    {
+      "title": "Cały Kraj",
+      "description": "Dostarczamy auta na terenie całej Polski."
+    }
+  ]
+}
