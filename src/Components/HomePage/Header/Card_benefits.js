@@ -6,7 +6,7 @@ const Card_benefits = (props) => {
         <Col style={{
             backgroundColor: '#3E3E3E'
         }}
-             className={"text-white gap-3"} lg={4} xl={4} md={6} sm={12} xs={12}>
+             className={"text-white"}>
             <div className={"d-flex flex-row"}>
                 <Image src={"/check-circle-fill.svg"}/>
                 <div className={"fw-bold text-center h4 ms-2"}>{props.title}</div>

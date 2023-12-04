@@ -1,0 +1,9 @@
+.carousel-control-prev, .carousel-control-next {
+    display: none !important;
+}
+
+.carousel-caption {
+    top: 0 !important;
+    left: 0 !important;
+    bottom: auto !important;
+}
