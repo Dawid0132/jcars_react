@@ -1,5 +1,5 @@
 import {Col, Container, Image, Row} from "react-bootstrap";
-import Service from "../../../Data_jsons/services.json";
+import Service from "../../../Data_jsons/HomePage/services.json";
 import "./Services.css";
 
 const Services_component = () => {

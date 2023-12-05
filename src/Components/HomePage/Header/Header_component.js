@@ -1,6 +1,6 @@
 import Card_benefits from "./Card_benefits";
 
-import Benefits from "../../../Data_jsons/benefits.json";
+import Benefits from "../../../Data_jsons/HomePage/benefits.json";
 import {Col, Container, Row} from "react-bootstrap";
 import Carousel_header from "./Carousel_header";
 

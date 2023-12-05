@@ -2,6 +2,9 @@ import {Col, Container, Nav, Row} from "react-bootstrap";
 
 const Footer_component = () => {
     return (<Container>
+        <hr className={"mt-5 mb-5"} style={{
+            color: "white"
+        }}/>
         <Row className={"text-white row-gap-3"}>
             <Col xs={12} sm={12} md={12} lg={6} xl={6}>
                 <div className={"border-5 border-start border-warning h2"}><span className={"ps-2"}>O nas</span>
@@ -62,6 +65,10 @@ const Footer_component = () => {
                 </Nav>
             </Col>
         </Row>
+        <hr className={""} style={{
+            color: "white"
+        }}/>
+        <div className={"text-white p-3"}>© 2023 Wszelkie prawa zastrzeżone. Projekt i wykonanie JCars</div>
     </Container>)
 }
 

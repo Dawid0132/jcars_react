@@ -1,6 +1,6 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
 import Card_car_lesser_then_md from "./Card_car_lesser_then_md";
-import CarDetails from "../../../Data_jsons/cardetails.json";
+import CarDetails from "../../../Data_jsons/Car/cardetails.json";
 import Services_component from "./Services_component";
 import Promotions_component from "./Promotions_component";
 import Card_car_bigger_then_md from "./Card_car_bigger_then_md";

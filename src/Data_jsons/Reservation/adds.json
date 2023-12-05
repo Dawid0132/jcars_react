@@ -1,0 +1,52 @@
+{
+  "adds": [
+    {
+      "title": "Ubezpieczenie OC/AC/NNW",
+      "price": null
+    },
+    {
+      "title": "Pakiet Gold",
+      "description": "Brak konieczności dopłat za wymianę przebitej opony lub szyby, mycie i czyszczenie oraz zmniejszenie udziału własnego w szkodzie z 20,000 zł do wysokości kaucji",
+      "price": 112
+    },
+    {
+      "title": "Pakiet Silver",
+      "description": "Brak konieczności dopłat za wymianę przebitej opony lub szyby",
+      "price": 45
+    },
+    {
+      "title": "Pakiet Platinum",
+      "description": "Brak konieczności dopłat za wymianę przebitej opony lub szyby, mycie i czyszczenie oraz zmniejszenie udziału własnego w szkodzie z 20,000 zł do 0 zł",
+      "price": 157
+    },
+    {
+      "title": "Możliwość zwrotu pustego baku",
+      "description": "Nie masz czasu na zatankowanie samochodu? Nic prostszego, zrobimy to za Ciebie!",
+      "price": 499
+    },
+    {
+      "title": "Pakiet mycie i czyszczenie",
+      "description": "Oszczędzaj swój czas, Ty - jeździsz, my - myjemy!",
+      "price": 119
+    },
+    {
+      "title": "Podstawienie auta na terenie Warszawy",
+      "description": "Wskaż adres, a nasz kierowca podstawi tam samochód",
+      "price": 99
+    },
+    {
+      "title": "Odbiór auta ze wskazanego adresu na terenie Warszawy",
+      "description": "Wskaż adres, a nasz kierowca odbierze stamtąd samochód",
+      "price": 99
+    },
+    {
+      "title": "Wynajem / zwrot auta poza godzinami pracy biura",
+      "description": "Pon. - pt. 09:00 - 19:00, sob. 10:00 - 15:00",
+      "price": 99
+    },
+    {
+      "title": "Brak limitu kilometrów",
+      "price": 90
+    }
+  ]
+}

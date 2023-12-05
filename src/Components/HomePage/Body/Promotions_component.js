@@ -1,5 +1,5 @@
 import {Button, Col, Container, Form, Image, InputGroup, Row} from "react-bootstrap";
-import Promotions from "../../../Data_jsons/promotions.json"
+import Promotions from "../../../Data_jsons/HomePage/promotions.json"
 import Card_car_bigger_then_md from "./Card_car_bigger_then_md";
 import Card_Newsletter_bigger_then_md from "./Card_Newsletter_bigger_then_md";
 import {useSelector} from "react-redux";
