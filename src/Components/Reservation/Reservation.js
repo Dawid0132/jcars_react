@@ -1,16 +1,81 @@
 import {Button, Col, Container, FloatingLabel, Form, Image, Row} from "react-bootstrap";
 import Add from "./Adds";
-import Adds from "../../Data_jsons/Reservation/adds.json";
+import Reservation_Card from "./Reservation_Card";
+import {useLoaderData} from "react-router-dom";
+import axios from "axios";
+import {useEffect, useState} from "react";
+import PaymentMethod from "./PaymentMethod";
+
+const url = "http://localhost:8080";
+
+function yearsExpiration() {
+    const years = [];
+    let currentYear = new Date().getFullYear();
+    for (let i = 0; i < 10; i++) {
+        years.push(currentYear);
+        currentYear = currentYear + 1;
+    }
+    return years;
+}
 
 
 const Reservation = () => {
+
+    const car = useLoaderData().res;
+
+    const [limits, setLimits] = useState([])
+
+    const [adds, setAdds] = useState([]);
+
+    const [paymentMethods, setPaymentMethods] = useState([{
+        id: 1, name: "Płacę kartą - Niska kaucja", src: "/check-circle-fill.svg"
+    }, {
+        id: 2, name: "Płacę przy odbiorze", src: "/check-circle-fill.svg"
+    }])
+
+    const [paymentMethod, setPaymentMethod] = useState(0);
+
+    const [months, setMonths] = useState(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]);
+
+    const [years, setYears] = useState(yearsExpiration);
+
+
+    async function fetchLimits() {
+        await axios.get(`${url}/getlimits`).then((resp) => {
+            setLimits(resp.data);
+        }).catch((error) => {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+        })
+    }
+
+    async function fetchAdds() {
+        await axios.get(`${url}/getAllAdds`).then((resp) => {
+            setAdds(resp.data);
+        }).catch((error) => {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+        })
+    }
+
+    useEffect(() => {
+        fetchLimits();
+        fetchAdds();
+    }, [])
+
     return (<Container className={"text-white d-flex flex-column mt-5"}>
-        <div className={"d-flex flex-row gap-5"}>
+        <div>
+            <h1 className={"fw-bold"}>Rezerwacja</h1>
+            <div className={"border-5 border-warning border-bottom w-25"}></div>
+        </div>
+        <div className={"d-flex flex-row gap-5 mt-5"}>
             <div className={"d-flex flex-column gap-5"}>
-                <div>
-                    <h1 className={"fw-bold"}>Rezerwacja</h1>
-                    <div className={"border-5 border-warning border-bottom w-25"}></div>
-                </div>
                 <h3 className={"border-5 border-warning border-start"}><span
                     className={"ps-2 fw-bold"}>Dane najemcy</span>
                 </h3>
@@ -93,16 +158,19 @@ const Reservation = () => {
                     </Col>
                 </Row>
             </div>
-            <div>
-
+            <div className={"d-flex flex-row justify-content-end w-50"}>
+                <Reservation_Card
+                    car={car}
+                    limit={limits}
+                />
             </div>
         </div>
         <h3 className={"border-5 border-warning border-start mt-5"}><span className={"ps-2 fw-bold"}>Dodatkowo</span>
         </h3>
         <Row className={"row-gap-3 mt-3"}>
-            {Adds.adds.map((add, i) => {
+            {adds.map((add) => {
                 return (<Add
-                    key={`add${i}`}
+                    key={add.id}
                     add={add}
                 />)
             })}
@@ -110,26 +178,49 @@ const Reservation = () => {
         <h3 className={"border-5 border-warning border-start mt-5"}><span className={"ps-2 fw-bold"}>Płatność</span>
         </h3>
         <Row className={"row-gap-3 mt-3"}>
-            <Col lg={6} xl={6} md={6} xs={12} sm={12}>
-                <div style={{
-                    backgroundColor: "#3E3E3E"
-                }} className={"fw-bold p-3 h-100"}>
-                    Płacę kartą - Niska kaucja<Image
-                    src={"/check-circle-fill.svg"}
-                    className={"ms-3"}
-                />
-                </div>
-            </Col>
-            <Col lg={6} xl={6} md={6} xs={12} sm={12}>
-                <div style={{
-                    backgroundColor: "#3E3E3E",
-                }} className={"fw-bold p-3 h-100"}>
-                    Płacę przy odbiorze<Image
-                    src={"/check-circle-fill.svg"}
-                    className={"ms-3"}
-                />
-                </div>
-            </Col>
+            {paymentMethods.map((method, index) => {
+                return (<PaymentMethod
+                    key={index}
+                    method={method}
+                    isActive={paymentMethod === index}
+                    setpayment={() => setPaymentMethod(index)}
+                />)
+            })}
+            {paymentMethod === 0 && (<Row>
+                <Col xl={4} lg={4} md={4}>
+                    <Form.Label htmlFor="card_number">Numer karty płatniczej</Form.Label>
+                    <Form.Control className={"p-2"}
+                                  type="text"
+                                  id="card_number"
+                    />
+                </Col>
+                <Form.Group xl={1} lg={1} md={1} as={Col} controlId="card_expiration">
+                    <Form.Label>Ważność</Form.Label>
+                    <Form.Select defaultValue="" className={"p-2"}>
+                        {months.map((month) => (<option key={month}>{month}</option>))}
+                    </Form.Select>
+                </Form.Group>
+                <Col xl={1} lg={1} md={1} className={"d-flex flex-column align-items-center justify-content-end"}>
+                    <div className={"h1"}>/</div>
+                </Col>
+                <Form.Group xl={2} lg={2} md={2} as={Col} controlId="card_expiration1"
+                            className={"d-flex flex-column align-items-end justify-content-end"}>
+                    <Form.Select className={"p-2"}>
+                        {years.map((year) => (<option key={year}>{year}</option>))}
+                    </Form.Select>
+                </Form.Group>
+                <Col xl={1} lg={1} md={1}>
+                    <Form.Label htmlFor="cvv">Kod CVV</Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="cvv"
+                        className={"p-2"}
+                    />
+                </Col>
+            </Row>)}
+            {paymentMethod === 1 && (<Col>
+                <h5>Płace przy odbiorze - Akceptujemy płatności kartą, gotówką i przelewem.</h5>
+            </Col>)}
         </Row>
         <h3 className={"border-5 border-warning border-start mt-5"}><span
             className={"ps-2 fw-bold"}>Zostaw wiadomość</span>
@@ -149,10 +240,9 @@ const Reservation = () => {
                 label="Znam i akceptuję regulamin oraz politykę prywatności JCars"
             />
             <Form.Check
-                disabled
+                disabled={paymentMethod === 1}
                 type="switch"
-                label="Wyrażam zgodę na obciążenie mojej karty płatniczej kosztem najmu oraz kosztem przyszłych transakcji.
-"
+                label="Wyrażam zgodę na obciążenie mojej karty płatniczej kosztem najmu oraz kosztem przyszłych transakcji."
                 id="disabled-custom-switch"
             />
         </div>
@@ -162,6 +252,21 @@ const Reservation = () => {
             </Button>
         </div>
     </Container>)
+}
+
+
+export const loader = async ({params}) => {
+    const res = await axios.get(`${url}/cars/${params.id}`)
+        .then((resp) => {
+            return resp.data;
+        }).catch((error) => {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+        })
+    return {res}
 }
 
 export default Reservation;

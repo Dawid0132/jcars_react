@@ -6,6 +6,7 @@ import Footer_component from "./Components/HomePage/Footer/Footer_component";
 
 
 function App() {
+    
     return (<>
         <Navbar_component/>
         <Outlet/>

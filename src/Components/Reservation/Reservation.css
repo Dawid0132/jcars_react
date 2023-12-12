@@ -1,0 +1,9 @@
+
+.unchecked {
+    background-color: #3E3E3E
+}
+
+.checked {
+    background-color: #222222;
+    border: white 1px solid;
+}

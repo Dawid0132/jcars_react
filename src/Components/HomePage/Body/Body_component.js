@@ -7,10 +7,15 @@ import Card_car_bigger_then_md from "./Card_car_bigger_then_md";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {larger_then_md, lesser_then_md} from "../../../features/sizeSlice";
+import axios from "axios";
+import {useLoaderData} from "react-router-dom";
+
+const url = "http://localhost:8080/cars";
 
 const Body_component = () => {
 
-    const size_changed = useSelector((state) => state.size.value)
+    const size_changed = useSelector((state) => state.size.value);
+    const cars = useSelector((state) => state.cars.cars);
     const dispatch = useDispatch();
 
 
@@ -24,7 +29,6 @@ const Body_component = () => {
         }
 
         window.addEventListener('resize', handleResize);
-
     })
 
     return (<Container>
@@ -34,18 +38,25 @@ const Body_component = () => {
                     className={"text-white ps-3"}>Wynajmij teraz</h1></div>
             </Row>
             <Row className={"mt-3 gap-3"} xs={1} md={1} lg={1} xl={1}>
-                {CarDetails.cars.map((item, index) => {
-                    if (!size_changed) {
-                        return (<Card_car_lesser_then_md
-                            key={`car${index}`}
-                            car={item}
-                        />)
-                    } else {
-                        return (<Card_car_bigger_then_md
-                            key={`car${index}`}
-                            car={item}
-                        />)
+                {cars.map((car, index) => {
+                        if (index < 5) {
+                            if (!size_changed) {
+                                return (<Card_car_lesser_then_md
+                                    key={car.id}
+                                    car={car}
+                                />)
+                            } else {
+                                return (
+                                    <Card_car_bigger_then_md
+                                        key={car.id}
+                                        car={car}
+                                    />
+                                )
+                            }
+                        }
                     }
+                )
+                }
                 })}
             </Row>
         </Container>

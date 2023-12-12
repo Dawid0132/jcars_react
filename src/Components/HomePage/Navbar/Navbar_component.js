@@ -30,7 +30,7 @@ function Navbar_component() {
     return (
             <Navbar sticky={"top"} expand={"md"} className={"bg-black"}>
                 <Container>
-                    <Navbar.Brand className={"text-white fw-bold"} href={"#"}>
+                    <Navbar.Brand className={"text-white fw-bold"} href={"/home"}>
                         JCars
                     </Navbar.Brand>
                     <Navbar.Toggle ref={hamburger} className={'border-0'} aria-controls={"navbar"}><Image
