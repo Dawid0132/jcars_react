@@ -10,7 +10,16 @@ function Navbar_component() {
     const hamburger = useRef(null);
 
     const text = ['Nasza flota', 'Wynajem z kierowcą', 'Promocje', 'Usługi', 'Kontakt'];
-    const svg = ['/envelope-fill.svg', '/telephone-fill.svg'];
+    const svg = [{
+        icon: '/envelope-fill.svg',
+        href: '/'
+    }, {
+        icon: '/telephone-fill.svg',
+        href: '/'
+    }, {
+        icon: '/person-fill.svg',
+        href: '/login'
+    }]
 
 
     useEffect(() => {
@@ -28,44 +37,44 @@ function Navbar_component() {
     })
 
     return (
-            <Navbar sticky={"top"} expand={"md"} className={"bg-black"}>
-                <Container>
-                    <Navbar.Brand className={"text-white fw-bold"} href={"/home"}>
-                        JCars
-                    </Navbar.Brand>
-                    <Navbar.Toggle ref={hamburger} className={'border-0'} aria-controls={"navbar"}><Image
-                        src={'/list-nested.svg'}/></Navbar.Toggle>
-                    <Navbar.Collapse id={"navbar"} className="justify-content-end">
-                        <Nav id={"text"} className={"text-center align-items-center"}
-                             style={{
-                                 maxHeight: '300px'
-                             }}>
-                            {text.map((item, index) => {
-                                return (<Nav.Link style={{
-                                    fontSize: '16px !important'
-                                }} className={"text-white fw-bold me-2 "} key={index}
-                                                  onMouseEnter={(e) => {
-                                                      e.currentTarget.classList.add('border-bottom', 'border-warning', 'text-warning');
-                                                      e.currentTarget.classList.remove('text-white')
-                                                  }} onMouseLeave={(e) => {
-                                    e.currentTarget.classList.add('text-white');
-                                    e.currentTarget.classList.remove('border-bottom', 'text-warning');
-                                }}>
-                                    <small>{item}</small>
-                                </Nav.Link>)
-                            })}
-                            <Nav.Link><Button variant={"outline-warning"}
-                                              className={"text-uppercase text-white fw-bold rounded-4"}><small>Zarezerwuj
-                                online</small></Button></Nav.Link>
-                            {svg.map((item, index) => {
-                                return (!isToggle &&
-                                    <Nav.Link><Button variant={"outline-warning"} className={"rounded-circle"}><Image
-                                        src={item} alt={`svg${index}`}/></Button></Nav.Link>)
-                            })}
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>)
+        <Navbar sticky={"top"} expand={"lg"} className={"bg-black"}>
+            <Container>
+                <Navbar.Brand className={"text-white fw-bold"} href={"/"}>
+                    JCars
+                </Navbar.Brand>
+                <Navbar.Toggle ref={hamburger} className={'border-0'} aria-controls={"navbar"}><Image
+                    src={'/list-nested.svg'}/></Navbar.Toggle>
+                <Navbar.Collapse id={"navbar"} className="justify-content-end">
+                    <Nav id={"text"} className={"text-center align-items-center"}
+                         style={{
+                             maxHeight: '300px'
+                         }}>
+                        {text.map((item, index) => {
+                            return (<Nav.Link style={{
+                                fontSize: '16px !important'
+                            }} className={"text-white fw-bold me-2 "} key={index}
+                                              onMouseEnter={(e) => {
+                                                  e.currentTarget.classList.add('border-bottom', 'border-warning', 'text-warning');
+                                                  e.currentTarget.classList.remove('text-white')
+                                              }} onMouseLeave={(e) => {
+                                e.currentTarget.classList.add('text-white');
+                                e.currentTarget.classList.remove('border-bottom', 'text-warning');
+                            }}>
+                                <small>{item}</small>
+                            </Nav.Link>)
+                        })}
+                        <Nav.Link><Button variant={"outline-warning"}
+                                          className={"text-uppercase text-white fw-bold rounded-4"}><small>Zarezerwuj
+                            online</small></Button></Nav.Link>
+                        {svg.map((item, index) => {
+                            return (!isToggle &&
+                                <Nav.Link href={item.href}><Button variant={"outline-warning"} className={"rounded-circle"}><Image
+                                    src={item.icon} alt={`svg${index}`}/></Button></Nav.Link>)
+                        })}
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>)
 }
 
 export default Navbar_component;

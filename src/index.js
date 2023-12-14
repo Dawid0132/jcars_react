@@ -16,13 +16,20 @@ import Reservation, {
 
 
 import 'bootstrap/dist/css/bootstrap.css';
+import SignIn from "./Components/Credentials/SignIn";
+import Login from "./Components/Credentials/Login";
+import SignUp from "./Components/Credentials/SignUp";
 
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path={"/"} element={<App/>}>
-            <Route index path={"/home"} element={<Homepage/>} loader={carsLoader}/>
+        <Route element={<App/>}>
+            <Route index path={"/"} element={<Homepage/>} loader={carsLoader}/>
             <Route path={"/reservation/:id"} element={<Reservation/>} loader={carLoader}/>
+            <Route path={"/login"} element={<Login/>}>
+                <Route index path={"/login"} element={<SignIn/>}/>
+                <Route path={"/login/signup"} element={<SignUp/>}/>
+            </Route>
         </Route>
     ))
 
