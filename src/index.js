@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import store from "./store.js";
 import {createRoutesFromElements, createBrowserRouter, RouterProvider, Route} from "react-router-dom";
-import ErrorPage from "./Components/ErrorPage";
 import Homepage, {
     loader as carsLoader
 } from "./Components/HomePage/Homepage";
@@ -19,6 +18,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import SignIn from "./Components/Credentials/SignIn";
 import Login from "./Components/Credentials/Login";
 import SignUp from "./Components/Credentials/SignUp";
+import Profile from "./Components/Profile/Profile";
 
 
 const router = createBrowserRouter(
@@ -30,6 +30,7 @@ const router = createBrowserRouter(
                 <Route index path={"/login"} element={<SignIn/>}/>
                 <Route path={"/login/signup"} element={<SignUp/>}/>
             </Route>
+            <Route path={"/profile"} element={<Profile/>}/>
         </Route>
     ))
 

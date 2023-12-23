@@ -1,6 +1,7 @@
 import {Button, Container, Image, Nav, Navbar} from "react-bootstrap";
 import '../App.css';
 import {useEffect, useRef, useState} from "react";
+import {useSelector} from "react-redux";
 
 require('typeface-roboto');
 
@@ -10,7 +11,7 @@ function Navbar_component() {
     const hamburger = useRef(null);
 
     const text = ['Nasza flota', 'Wynajem z kierowcą', 'Promocje', 'Usługi', 'Kontakt'];
-    const svg = ['/envelope-fill.svg', '/telephone-fill.svg'];
+    const svg = ['/envelope-fill.svg', '/telephone-fill.svg',];
 
 
     useEffect(() => {

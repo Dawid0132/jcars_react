@@ -1,9 +1,8 @@
 import {Button, Col, Container, Form, Image} from "react-bootstrap";
 import "./Reservation.css";
 import {useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {larger_then_md} from "../../features/sizeSlice";
-import {addToList, removeFromList} from "../../features/addsSlice";
+import {useDispatch} from "react-redux";
+import {ADD_TO_LIST_ADD, REMOVE_FROM_LIST_ADD} from "../../Jwt/Actions/Type";
 
 const Add = (prop) => {
 
@@ -14,10 +13,18 @@ const Add = (prop) => {
         if (event.currentTarget.id > 1) {
             if (ref.current.classList.contains("checked")) {
                 ref.current.classList.remove("checked");
-                dispatch(removeFromList(prop.add));
+                /*dispatch(removeFromList(prop.add));*/
+                dispatch({
+                    type: REMOVE_FROM_LIST_ADD,
+                    payload: prop.add
+                })
             } else {
                 ref.current.classList.add("checked");
-                dispatch(addToList(prop.add));
+                /*dispatch(addToList(prop.add));*/
+                dispatch({
+                    type: ADD_TO_LIST_ADD,
+                    payload: prop.add
+                })
             }
         }
     }

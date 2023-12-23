@@ -1,14 +1,13 @@
-import {configureStore} from "@reduxjs/toolkit";
-import sizeReducer from './features/sizeSlice';
-import addsReducer from "./features/addsSlice";
-import carReducer from "./features/carsSlice";
-import reservationReducer from "./features/reservationSlice";
+import {applyMiddleware, createStore} from "@reduxjs/toolkit";
+import {thunk} from "redux-thunk";
+import rootReducer from "./Jwt/Reducers/index";
+import {composeWithDevTools} from "redux-devtools-extension";
 
-export default configureStore({
-    reducer: {
-        size: sizeReducer,
-        adds: addsReducer,
-        cars: carReducer,
-        reservation: reservationReducer
-    }
-})
+const middleware = [thunk];
+
+const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(...middleware))
+)
+
+export default store;

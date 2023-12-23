@@ -112,7 +112,7 @@ const Reservation_Card = (prop) => {
 
     const [addsTotal, setAddsTotal] = useState(0);
 
-    const adds = useSelector((state) => state.adds.list);
+    const adds = useSelector((state) => state.adds.adds);
 
     let handleColor = (time) => {
         return time.getHours() > 12 ? "text-success" : "text-error";

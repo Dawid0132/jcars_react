@@ -6,19 +6,9 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import PaymentMethod from "./PaymentMethod";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    address, carlicense,
-    city, documentid,
-    email,
-    fullname,
-    nip, personid,
-    phone,
-    promotioncode,
-    update,
-    zipcode
-} from "../../features/reservationSlice";
+import {ADD_TO_LIST_ADD} from "../../Jwt/Actions/Type";
 
-const url = "http://localhost:8080";
+const url = "http://localhost:8080/api/jcars";
 
 function yearsExpiration() {
     const years = [];
@@ -105,10 +95,14 @@ const Reservation = () => {
                             <FloatingLabel label={"Imię i nazwisko"}
                                            controlId="floatingTextarea">
                                 <Form.Control className={"bg-dark text-white"}
-                                              value={reservation.fullname}
+                                              value={reservation.firstname}
                                               placeholder="Imię i nazwisko"
                                               onChange={(e) => {
-                                                  dispatch(fullname(e.currentTarget.value));
+                                                  /*dispatch(fullname(e.currentTarget.value));*/
+                                                  dispatch({
+                                                      type: ADD_TO_LIST_ADD,
+                                                      payload: {firstname: e.currentTarget.value}
+                                                  })
                                               }}
                                 />
                             </FloatingLabel>
@@ -117,7 +111,11 @@ const Reservation = () => {
                             <FloatingLabel label={"NIP(opcjonalnie)"}
                                            controlId="floatingTextarea1">
                                 <Form.Control value={reservation.nip} onChange={(e) => {
-                                    dispatch(nip(e.currentTarget.value))
+                                    /*dispatch(nip(e.currentTarget.value))*/
+                                    dispatch({
+                                        type: ADD_TO_LIST_ADD,
+                                        payload: {nip: e.currentTarget.value}
+                                    })
                                 }} className={"bg-dark text-white"} placeholder="NIP(opcjonalnie)"/>
                             </FloatingLabel>
                         </Col>
@@ -127,7 +125,11 @@ const Reservation = () => {
                             <FloatingLabel label={"Adres zameldowania"}
                                            controlId="floatingTextarea2">
                                 <Form.Control value={reservation.address} onChange={(e) => {
-                                    dispatch(address(e.currentTarget.value))
+                                    /*dispatch(address(e.currentTarget.value))*/
+                                    dispatch({
+                                        type: ADD_TO_LIST_ADD,
+                                        payload: {address: e.currentTarget.value}
+                                    })
                                 }} className={"bg-dark text-white"} placeholder="Adres zameldowania"/>
                             </FloatingLabel>
                         </Col>
@@ -135,7 +137,11 @@ const Reservation = () => {
                             <FloatingLabel label={"Kod pocztowy"}
                                            controlId="floatingTextarea3">
                                 <Form.Control value={reservation.zipcode} onChange={(e) => {
-                                    dispatch(zipcode(e.currentTarget.value))
+                                    /*dispatch(zipcode(e.currentTarget.value))*/
+                                    dispatch({
+                                        type: ADD_TO_LIST_ADD,
+                                        payload: {zipcode: e.currentTarget.value}
+                                    })
                                 }} className={"bg-dark text-white"} placeholder="Kod pocztowy"/>
                             </FloatingLabel>
                         </Col>
@@ -145,7 +151,11 @@ const Reservation = () => {
                             <FloatingLabel label={"Miejsowość"}
                                            controlId="floatingTextarea4">
                                 <Form.Control value={reservation.city} onChange={(e) => {
-                                    dispatch(city(e.currentTarget.value))
+                                    /*dispatch(city(e.currentTarget.value))*/
+                                    dispatch({
+                                        type: ADD_TO_LIST_ADD,
+                                        payload: {city: e.currentTarget.value}
+                                    })
                                 }} className={"bg-dark text-white"} placeholder="Miejsowość"/>
                             </FloatingLabel>
                         </Col>
@@ -153,7 +163,11 @@ const Reservation = () => {
                             <FloatingLabel label={"Kod Stałego Klienta"}
                                            controlId="floatingTextarea5">
                                 <Form.Control value={reservation.promotioncode} onChange={(e) => {
-                                    dispatch(promotioncode(e.currentTarget.value))
+                                    /*dispatch(promotioncode(e.currentTarget.value))*/
+                                    dispatch({
+                                        type: ADD_TO_LIST_ADD,
+                                        payload: {promotioncode: e.currentTarget.value}
+                                    })
                                 }} className={"bg-dark text-white"} placeholder="Kod Stałego Klienta"/>
                             </FloatingLabel>
                         </Col>
@@ -163,7 +177,11 @@ const Reservation = () => {
                             <FloatingLabel label={"telefon"}
                                            controlId="floatingTextarea6">
                                 <Form.Control value={reservation.phone} onChange={(e) => {
-                                    dispatch(phone(e.currentTarget.value))
+                                    /*dispatch(phone(e.currentTarget.value))*/
+                                    dispatch({
+                                        type: ADD_TO_LIST_ADD,
+                                        payload: {phone: e.currentTarget.value}
+                                    })
                                 }} className={"bg-dark text-white"} placeholder="telefon"/>
                             </FloatingLabel>
                         </Col>
@@ -171,7 +189,11 @@ const Reservation = () => {
                             <FloatingLabel label={"E-mail"}
                                            controlId="floatingTextarea7">
                                 <Form.Control value={reservation.email} onChange={(e) => {
-                                    dispatch(email(e.currentTarget.value))
+                                    /*dispatch(email(e.currentTarget.value))*/
+                                    dispatch({
+                                        type: ADD_TO_LIST_ADD,
+                                        payload: {email: e.currentTarget.value}
+                                    })
                                 }} className={"bg-dark text-white"} placeholder="E-mail"/>
                             </FloatingLabel>
                         </Col>
@@ -181,7 +203,11 @@ const Reservation = () => {
                             <FloatingLabel label={"Numer prawa jazdy"}
                                            controlId="floatingTextarea8">
                                 <Form.Control value={reservation.carlicense} onChange={(e) => {
-                                    dispatch(carlicense(e.currentTarget.value))
+                                    /*dispatch(carlicense(e.currentTarget.value))*/
+                                    dispatch({
+                                        type: ADD_TO_LIST_ADD,
+                                        payload: {carlicense: e.currentTarget.value}
+                                    })
                                 }} className={"bg-dark text-white"} placeholder="Numer prawa jazdy"/>
                             </FloatingLabel>
                         </Col>
@@ -191,7 +217,11 @@ const Reservation = () => {
                                 <Form.Control className={"bg-dark text-white"}
                                               value={reservation.documentid}
                                               onChange={(e) => {
-                                                  dispatch(documentid(e.currentTarget.value))
+                                                  /*dispatch(documentid(e.currentTarget.value))*/
+                                                  dispatch({
+                                                      type: ADD_TO_LIST_ADD,
+                                                      payload: {documentid: e.currentTarget.value}
+                                                  })
                                               }}
                                               placeholder="Numer dokumentu tożsamości"/>
                             </FloatingLabel>
@@ -202,7 +232,11 @@ const Reservation = () => {
                             <FloatingLabel label={"Pesel"}
                                            controlId="floatingTextarea10">
                                 <Form.Control value={reservation.personid} onChange={(e) => {
-                                    dispatch(personid(e.currentTarget.value))
+                                    /*dispatch(personid(e.currentTarget.value))*/
+                                    dispatch({
+                                        type: ADD_TO_LIST_ADD,
+                                        payload: {personid: e.currentTarget.value}
+                                    })
                                 }} className={"bg-dark text-white"} placeholder="Pesel"/>
                             </FloatingLabel>
                         </Col>

@@ -1,8 +1,15 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {Formik, useFormik} from "formik";
 import * as yup from 'yup';
+import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {register} from "../../Jwt/Actions/auth";
 
 const SignUp = () => {
+
+    const [successfully, setSuccessfully] = useState(false);
+
+    const dispatch = useDispatch();
 
     const signupSchema = yup.object().shape({
         firstname: yup.string()
@@ -31,10 +38,15 @@ const SignUp = () => {
             validationSchema={signupSchema}
             initialValues={{
                 firstname: '', lastname: '', email: '', password: '', phone: '', address: '', carlicense: ''
-            }} onSubmit={(values, {setSubmitting}) => {
+            }} onSubmit={(values) => {
             setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
+                dispatch(register(values))
+                    .then(() => {
+                        setSuccessfully(true)
+                    })
+                    .catch(() => {
+                        setSuccessfully(false)
+                    })
             }, 400);
         }}>{({handleSubmit, handleChange, values, touched, errors}) => (<Form onSubmit={handleSubmit}>
             <Row>

@@ -1,9 +1,21 @@
 import {Button, Container, Form, Nav} from "react-bootstrap";
 import {Formik} from "formik";
 import * as yup from "yup";
+import {useDispatch, useSelector} from "react-redux";
+import {useState} from "react";
+import {login} from "../../Jwt/Actions/auth";
+import {Navigate} from "react-router"
 
 const SignIn = () => {
 
+    const dispatch = useDispatch();
+
+    const [loading, setLoading] = useState(false);
+    const {isLoggedIn} = useSelector((state) => state.auth);
+
+    if (isLoggedIn) {
+        return <Navigate to={"/profile"}/>
+    }
 
     const signInSchema = yup.object().shape({
         email: yup.string()
@@ -20,10 +32,15 @@ const SignIn = () => {
         <Formik
             validationSchema={signInSchema}
             initialValues={{email: '', password: ''}}
-            onSubmit={(values, {setSubmitting}) => {
+            onSubmit={(values) => {
                 setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    setSubmitting(false);
+                    dispatch(login(values.email, values.password))
+                        .then(() => {
+                            window.location.reload();
+                        })
+                        .catch(() => {
+                            setLoading(false);
+                        })
                 }, 400);
             }}>{({handleSubmit, handleChange, values, touched, errors}) => (<Form onSubmit={handleSubmit}>
             <Form.Group className={"mt-2"}>

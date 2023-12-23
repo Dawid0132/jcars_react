@@ -4,10 +4,12 @@ import axios from "axios";
 import {useLoaderData} from "react-router-dom";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {add} from "../../features/carsSlice";
+import {add} from "../../Jwt/Reducers/Funcionality/carsSlice";
+import {ADD_CARS} from "../../Jwt/Actions/Type";
+import {addCars} from "../../Jwt/Reducers/Funcionality/Actions/Actions";
 
 
-const url = "http://localhost:8080/cars";
+const url = "http://localhost:8080/api/jcars/cars";
 
 const Homepage = () => {
 
@@ -15,16 +17,13 @@ const Homepage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(add(cars));
+        dispatch(addCars(cars));
     }, [cars, dispatch])
 
-
-    return (
-        <>
-            <Header_component/>
-            <Body_component/>
-        </>
-    )
+    return (<>
+        <Header_component/>
+        <Body_component/>
+    </>)
 }
 
 export const loader = async () => {

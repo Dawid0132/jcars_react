@@ -1,19 +1,21 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {CLEAR_RESERVATION, SET_RESERVATION} from "../../Actions/Type";
 
-const reservation = {
-    fullname: '',
-    nip: '',
-    address: '',
-    zipcode: '',
-    city: '',
-    promotioncode: '',
-    phone: '',
-    email: '',
-    carlicense: '',
-    documentid: '',
-    personid: ''
+const initialState = {}
+
+export default function (state = initialState, action) {
+    const {type, payload} = action;
+
+    switch (type) {
+        case SET_RESERVATION:
+            return {...state, payload}
+        case CLEAR_RESERVATION:
+            return {}
+        default:
+            return state;
+    }
 }
 
+/*
 export const reservationSlice = createSlice({
     name: 'reservation', initialState: reservation,
     reducers: {
@@ -65,6 +67,6 @@ export const {
     carlicense,
     documentid,
     personid
-} = reservationSlice.actions
+} = reservationSlice.Actions
 
-export default reservationSlice.reducer
+export default reservationSlice.reducer*/

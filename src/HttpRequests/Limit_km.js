@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8080"
+const url = "http://localhost:8080/api/jcars"
 
 export const getLimits = () => {
     axios.get(`${url}/getlimits`).then((resp) => {

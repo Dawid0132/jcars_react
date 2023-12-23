@@ -6,25 +6,31 @@ import Promotions_component from "./Promotions_component";
 import Card_car_bigger_then_md from "./Card_car_bigger_then_md";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {larger_then_md, lesser_then_md} from "../../../features/sizeSlice";
+import {larger_then_md, lesser_then_md} from "../../../Jwt/Reducers/Funcionality/sizeSlice";
 import axios from "axios";
 import {useLoaderData} from "react-router-dom";
+import {LARGER_THEN_MD, LESSER_THEN_MD} from "../../../Jwt/Actions/Type";
 
 const url = "http://localhost:8080/cars";
 
 const Body_component = () => {
 
-    const size_changed = useSelector((state) => state.size.value);
-    const cars = useSelector((state) => state.cars.cars);
+    /*const size_changed = useSelector((state) => state.size.value);*/
+    const {sizeChanged} = useSelector((state) => state.size);
+    const {cars} = useSelector((state) => state.cars);
     const dispatch = useDispatch();
 
 
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth >= 992) {
-                dispatch(larger_then_md())
+                dispatch({
+                    type: LARGER_THEN_MD
+                })
             } else {
-                dispatch(lesser_then_md());
+                dispatch({
+                    type: LESSER_THEN_MD
+                })
             }
         }
 
@@ -40,7 +46,7 @@ const Body_component = () => {
             <Row className={"mt-3 gap-3"} xs={1} md={1} lg={1} xl={1}>
                 {cars.map((car, index) => {
                         if (index < 5) {
-                            if (!size_changed) {
+                            if (!sizeChanged) {
                                 return (<Card_car_lesser_then_md
                                     key={car.id}
                                     car={car}
