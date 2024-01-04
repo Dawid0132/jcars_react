@@ -1,13 +1,12 @@
-import {Button, Col, Container, Form, Image, InputGroup, Row} from "react-bootstrap";
+import {Col, Container,Row} from "react-bootstrap";
 import Promotions from "../../../Data_jsons/HomePage/promotions.json"
-import Card_car_bigger_then_md from "./Card_car_bigger_then_md";
 import Card_Newsletter_bigger_then_md from "./Card_Newsletter_bigger_then_md";
 import {useSelector} from "react-redux";
 import Card_Newsletter_lesser_then_md from "./Card_Newsletter_lesser_then_md";
 
 export const Promotions_component = () => {
 
-    const size_changed = useSelector((state) => state.size.value)
+    const {sizeChanged} = useSelector((state) => state.size);
 
     return (<Container className={"mt-5 text-white"}>
             <Row>
@@ -33,7 +32,7 @@ export const Promotions_component = () => {
                             <div className={"mt-2"}>{item.description}</div>
                         </Col>)
                     } else {
-                        if (!size_changed) {
+                        if (!sizeChanged) {
                             return (<Card_Newsletter_lesser_then_md
                                     item={item}
                                 />)

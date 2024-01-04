@@ -1,16 +1,15 @@
 import {Button, Container, Image, Nav, Navbar, NavLink} from "react-bootstrap";
 import '../../../App.css';
 import {useEffect, useRef, useState} from "react";
-import {useSelector} from "react-redux";
+import {Navigate} from "react-router";
 
 require('typeface-roboto');
 
-function Navbar_component({onClick}) {
+function Navbar_component({onClick, currentUser}) {
 
     const [isToggle, setIsToggle] = useState(false);
     const hamburger = useRef(null);
 
-    const {isLoggedIn} = useSelector((state) => state.auth);
 
     const text = ['Nasza flota', 'Wynajem z kierowcą', 'Promocje', 'Usługi', 'Kontakt'];
     const svg = [{
@@ -69,7 +68,7 @@ function Navbar_component({onClick}) {
                         online</small></Button></Nav.Link>
                     {svg.map((item, index) => {
                         if (svg.length - 1 === index) {
-                            return (!isToggle && isLoggedIn &&
+                            return (!isToggle && currentUser &&
                                 <Button onClick={onClick} id={`${index}`} variant={"outline-warning"}
                                         className={"rounded-circle me-1"}><Image
                                     src={item.icon} alt={`svg${index}`}/></Button>)

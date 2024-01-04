@@ -20,6 +20,7 @@ const login = (email, password) => {
 
 const logout = () => {
     localStorage.removeItem("user");
+    window.location.reload();
 }
 
 export default {

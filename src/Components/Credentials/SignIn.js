@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
 import {login} from "../../Jwt/Actions/auth";
 import {Navigate} from "react-router"
+import Loading from "../Loading";
 
 const SignIn = () => {
 
@@ -24,6 +25,10 @@ const SignIn = () => {
             .required('Required')
     });
 
+    if (loading) {
+        return <Loading/>
+    }
+
     return (<Container className={"text-white w-50"}>
         <div className={"d-flex flex-column"}>
             <h1>Sign in</h1>
@@ -33,6 +38,7 @@ const SignIn = () => {
             validationSchema={signInSchema}
             initialValues={{email: '', password: ''}}
             onSubmit={(values) => {
+                setLoading(true);
                 setTimeout(() => {
                     dispatch(login(values.email, values.password))
                         .then(() => {

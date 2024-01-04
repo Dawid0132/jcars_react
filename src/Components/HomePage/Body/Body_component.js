@@ -10,32 +10,36 @@ import {larger_then_md, lesser_then_md} from "../../../Jwt/Reducers/Funcionality
 import axios from "axios";
 import {useLoaderData} from "react-router-dom";
 import {LARGER_THEN_MD, LESSER_THEN_MD} from "../../../Jwt/Actions/Type";
+import {setLargerThenMd, setLesserThenMd} from "../../../Jwt/Reducers/Funcionality/Actions/Actions";
 
 const url = "http://localhost:8080/cars";
 
 const Body_component = () => {
 
-    /*const size_changed = useSelector((state) => state.size.value);*/
     const {sizeChanged} = useSelector((state) => state.size);
     const {cars} = useSelector((state) => state.cars);
+    const [isBigger, setIsBigger] = useState(false);
     const dispatch = useDispatch();
-
 
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth >= 992) {
-                dispatch({
-                    type: LARGER_THEN_MD
-                })
+                setIsBigger(false);
             } else {
-                dispatch({
-                    type: LESSER_THEN_MD
-                })
+                setIsBigger(true);
             }
         }
 
         window.addEventListener('resize', handleResize);
     })
+
+    useEffect(() => {
+        if (isBigger) {
+            dispatch(setLargerThenMd())
+        } else {
+            dispatch(setLesserThenMd())
+        }
+    }, [isBigger, dispatch])
 
     return (<Container>
         <Container className={"mt-5"}>
