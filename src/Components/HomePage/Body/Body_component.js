@@ -1,15 +1,11 @@
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Nav, Row} from "react-bootstrap";
 import Card_car_lesser_then_md from "./Card_car_lesser_then_md";
-import CarDetails from "../../../Data_jsons/Car/cardetails.json";
 import Services_component from "./Services_component";
 import Promotions_component from "./Promotions_component";
 import Card_car_bigger_then_md from "./Card_car_bigger_then_md";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {larger_then_md, lesser_then_md} from "../../../Jwt/Reducers/Funcionality/sizeSlice";
-import axios from "axios";
-import {useLoaderData} from "react-router-dom";
-import {LARGER_THEN_MD, LESSER_THEN_MD} from "../../../Jwt/Actions/Type";
+import {Link} from "react-router-dom";
 import {setLargerThenMd, setLesserThenMd} from "../../../Jwt/Reducers/Funcionality/Actions/Actions";
 
 const url = "http://localhost:8080/cars";
@@ -71,7 +67,9 @@ const Body_component = () => {
             </Row>
         </Container>
         <Col xs={12} lg={12} md={12} sm={12} xl={12} className={"mt-2 text-center"}>
-            <Button variant={"warning"} className={"w-100"}>Zobacz wszystkie samochody</Button>
+            <Link to={`/cars`}>
+                <Button variant={"warning"} className={"w-100"}>Zobacz wszystkie samochody</Button>
+            </Link>
         </Col>
         <Services_component/>
         <Promotions_component/>
