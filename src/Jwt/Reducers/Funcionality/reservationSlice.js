@@ -3,10 +3,9 @@ import {forEach} from "react-bootstrap/ElementChildren";
 import reservation from "../../../Components/Reservation/Reservation";
 
 const initialState = {
-    reservation: [
-        {startDate: new Date()},
-        {endDate: new Date()}
-    ]
+    reservation: {
+        startDate: new Date(), endDate: new Date()
+    }
 }
 
 export default function (state = initialState, action) {
@@ -14,23 +13,43 @@ export default function (state = initialState, action) {
 
     switch (type) {
         case SET_RESERVATION:
+            let updatedReservation = {...state.reservation}
             let key = true;
-            const updatedItems = state.reservation.map((data, index) => {
-                for (let indexData in data) {
-                    for (let indexPayload in payload) {
-                        if (indexData === indexPayload) {
-                            key = false;
-                            return {...data, ...payload}
-                        }
+
+            for (let propertyReservation in state.reservation) {
+                for (let propertyPayload in payload) {
+                    if (propertyReservation === propertyPayload) {
+                        key = false;
+                        updatedReservation[propertyPayload] = payload[propertyPayload];
                     }
                 }
-                return data;
-            })
-            if (key) {
-                return {...state, reservation: [...state.reservation, payload]}
-            } else {
-                return {...state, reservation: updatedItems};
             }
+
+            if (key) {
+                updatedReservation = {...updatedReservation, ...payload};
+            }
+
+            return {...state, reservation: updatedReservation};
+
+
+
+        /*let key = true;
+        const updatedItems = state.reservation.map((data, index) => {
+            for (let indexData in data) {
+                for (let indexPayload in payload) {
+                    if (indexData === indexPayload) {
+                        key = false;
+                        return {...data, ...payload}
+                    }
+                }
+            }
+            return data;
+        })
+        if (key) {
+            return {...state, reservation: [...state.reservation, payload]}
+        } else {
+            return {...state, reservation: updatedItems};
+        }*/
         case CLEAR_RESERVATION:
             return []
         default:

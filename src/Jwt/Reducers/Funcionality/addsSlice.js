@@ -1,4 +1,3 @@
-import {createSlice} from "@reduxjs/toolkit";
 import {ADD_TO_LIST_ADD, CLEAR_MESSAGE, REMOVE_FROM_LIST_ADD, SET_MESSAGE} from "../../Actions/Type";
 
 const initialState = {

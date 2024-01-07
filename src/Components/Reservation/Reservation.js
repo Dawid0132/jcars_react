@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ADD_TO_LIST_ADD, SET_RESERVATION} from "../../Jwt/Actions/Type";
 import * as yup from 'yup';
 import {Formik, useFormik} from "formik";
+import {number} from "yup";
 
 const url = "http://localhost:8080/api/jcars";
 
@@ -29,6 +30,8 @@ const Reservation = () => {
 
     const reservation = useSelector((state) => state.reservation);
 
+    const addsAll = useSelector((state) => state.adds);
+
     const dispatch = useDispatch();
 
     const [limits, setLimits] = useState([])
@@ -48,18 +51,35 @@ const Reservation = () => {
     const [years, setYears] = useState(yearsExpiration);
 
     const signupSchema = yup.object().shape({
-        firstname: yup.string().required('Required'), lastname: yup.string().required('Required'), nip: yup.string(),
+        firstname: yup.string().required('Required'),
+        lastname: yup.string().required('Required'),
+        nip: yup.string(),
         address: yup.string().required('Required'),
         zipcode: yup.string().required('Required'),
         city: yup.string().required('Required'),
         promotioncode: yup.string().required('Required'),
         phone: yup.string().required('Required'),
         email: yup.string().required('Required'),
-        carlicense: yup.string().required('Required'),
         documentid: yup.string().required('Required'),
         personid: yup.string().required('Required'),
         carlicense: yup.string().required('Required'),
-    });
+        rules: yup.bool().required().oneOf([true], 'Terms must be accepted'),
+        rules_card: yup.bool().when("showCard", {
+            is: true, then: yup.string().required().oneOf([true], 'Terms must be accepted')
+        }),
+        showCard: yup.bool(),
+        card: yup.object({
+            number: yup.string().when("showCard", {
+                is: true, then: yup.string().required("Required")
+            }), expirationMonth: yup.string().when("showCard", {
+                is: true, then: yup.string().required("Required")
+            }), expirationYear: yup.string().when("showCard", {
+                is: true, then: yup.string().required("Required")
+            }), cvv: yup.string().when("showCard", {
+                is: true, then: yup.string().required("Required")
+            })
+        })
+    })
 
 
     async function fetchLimits() {
@@ -91,9 +111,6 @@ const Reservation = () => {
         fetchAdds();
     }, [])
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    }
 
     return (<Container className={"text-white d-flex flex-column mt-5"}>
         <Formik
@@ -108,13 +125,19 @@ const Reservation = () => {
                 promotioncode: '',
                 phone: '',
                 email: '',
-                carlicense: '',
                 documentid: '',
                 personid: '',
                 carlicense: '',
+                rules: false,
+                rules_card: false,
+                showCard: true,
+                card: {
+                    number: '', expirationMonth: '', expirationYear: '', cvv: ''
+                }
             }} onSubmit={(values) => {
             setTimeout(() => {
-                console.log("ok");
+                console.log(reservation);
+                console.log(addsAll);
             }, 400);
         }}>{({handleSubmit, handleChange, values, touched, errors}) => (<Form onSubmit={handleSubmit}>
             <div>
@@ -129,7 +152,7 @@ const Reservation = () => {
                     <Row className={"gap-2"}>
                         <Col md>
                             <Form.Group>
-                                <FloatingLabel label={"Imię i nazwisko"}
+                                <FloatingLabel label={"Imię"}
                                                controlId="floatingTextarea">
                                     <Form.Control className={"bg-dark text-white"}
                                                   name={"firstname"}
@@ -151,12 +174,13 @@ const Reservation = () => {
                         <Col md>
                             <FloatingLabel label={"Nazwisko"}
                                            controlId="floatingTextarea1">
-                                <Form.Control isInvalid={!!errors.lastname} name={"lastname"} value={values.lastname} onChange={(e) => {
-                                    handleChange(e)
-                                    dispatch({
-                                        type: SET_RESERVATION, payload: {nip: e.currentTarget.value}
-                                    })
-                                }} className={"bg-dark text-white"} placeholder="NIP(opcjonalnie)"/>
+                                <Form.Control isInvalid={!!errors.lastname} name={"lastname"} value={values.lastname}
+                                              onChange={(e) => {
+                                                  handleChange(e)
+                                                  dispatch({
+                                                      type: SET_RESERVATION, payload: {nip: e.currentTarget.value}
+                                                  })
+                                              }} className={"bg-dark text-white"} placeholder="NIP(opcjonalnie)"/>
                             </FloatingLabel>
                             <Form.Control.Feedback type={"invalid"}>{errors.nip}</Form.Control.Feedback>
                         </Col>
@@ -165,24 +189,26 @@ const Reservation = () => {
                         <Col md>
                             <FloatingLabel label={"Adres zameldowania"}
                                            controlId="floatingTextarea2">
-                                <Form.Control isInvalid={!!errors.address} name={"address"} value={values.address} onChange={(e) => {
-                                    handleChange(e)
-                                    dispatch({
-                                        type: SET_RESERVATION, payload: {address: e.currentTarget.value}
-                                    })
-                                }} className={"bg-dark text-white"} placeholder="Adres zameldowania"/>
+                                <Form.Control isInvalid={!!errors.address} name={"address"} value={values.address}
+                                              onChange={(e) => {
+                                                  handleChange(e)
+                                                  dispatch({
+                                                      type: SET_RESERVATION, payload: {address: e.currentTarget.value}
+                                                  })
+                                              }} className={"bg-dark text-white"} placeholder="Adres zameldowania"/>
                             </FloatingLabel>
                             <Form.Control.Feedback type={"invalid"}>{errors.address}</Form.Control.Feedback>
                         </Col>
                         <Col md>
                             <FloatingLabel label={"Kod pocztowy"}
                                            controlId="floatingTextarea3">
-                                <Form.Control isInvalid={!!errors.zipcode} name={"zipcode"} value={values.zipcode} onChange={(e) => {
-                                    handleChange(e)
-                                    dispatch({
-                                        type: SET_RESERVATION, payload: {zipcode: e.currentTarget.value}
-                                    })
-                                }} className={"bg-dark text-white"} placeholder="Kod pocztowy"/>
+                                <Form.Control isInvalid={!!errors.zipcode} name={"zipcode"} value={values.zipcode}
+                                              onChange={(e) => {
+                                                  handleChange(e)
+                                                  dispatch({
+                                                      type: SET_RESERVATION, payload: {zipcode: e.currentTarget.value}
+                                                  })
+                                              }} className={"bg-dark text-white"} placeholder="Kod pocztowy"/>
                             </FloatingLabel>
                             <Form.Control.Feedback type={"invalid"}>{errors.zipcode}</Form.Control.Feedback>
                         </Col>
@@ -191,19 +217,21 @@ const Reservation = () => {
                         <Col md>
                             <FloatingLabel label={"Miejsowość"}
                                            controlId="floatingTextarea4">
-                                <Form.Control isInvalid={!!errors.city} name={"city"} value={values.city} onChange={(e) => {
-                                    handleChange(e)
-                                    dispatch({
-                                        type: SET_RESERVATION, payload: {city: e.currentTarget.value}
-                                    })
-                                }} className={"bg-dark text-white"} placeholder="Miejsowość"/>
+                                <Form.Control isInvalid={!!errors.city} name={"city"} value={values.city}
+                                              onChange={(e) => {
+                                                  handleChange(e)
+                                                  dispatch({
+                                                      type: SET_RESERVATION, payload: {city: e.currentTarget.value}
+                                                  })
+                                              }} className={"bg-dark text-white"} placeholder="Miejsowość"/>
                             </FloatingLabel>
                             <Form.Control.Feedback type={"invalid"}>{errors.city}</Form.Control.Feedback>
                         </Col>
                         <Col md>
                             <FloatingLabel label={"Kod Stałego Klienta"}
                                            controlId="floatingTextarea5">
-                                <Form.Control isInvalid={!!errors.promotioncode} name={"promotioncode"} value={values.promotioncode} onChange={(e) => {
+                                <Form.Control isInvalid={!!errors.promotioncode} name={"promotioncode"}
+                                              value={values.promotioncode} onChange={(e) => {
                                     handleChange(e)
                                     dispatch({
                                         type: SET_RESERVATION, payload: {promotioncode: e.currentTarget.value}
@@ -217,24 +245,26 @@ const Reservation = () => {
                         <Col md>
                             <FloatingLabel label={"telefon"}
                                            controlId="floatingTextarea6">
-                                <Form.Control isInvalid={!!errors.phone} name={"phone"} value={values.phone} onChange={(e) => {
-                                    handleChange(e)
-                                    dispatch({
-                                        type: SET_RESERVATION, payload: {phone: e.currentTarget.value}
-                                    })
-                                }} className={"bg-dark text-white"} placeholder="telefon"/>
+                                <Form.Control isInvalid={!!errors.phone} name={"phone"} value={values.phone}
+                                              onChange={(e) => {
+                                                  handleChange(e)
+                                                  dispatch({
+                                                      type: SET_RESERVATION, payload: {phone: e.currentTarget.value}
+                                                  })
+                                              }} className={"bg-dark text-white"} placeholder="telefon"/>
                             </FloatingLabel>
                             <Form.Control.Feedback type={"invalid"}>{errors.phone}</Form.Control.Feedback>
                         </Col>
                         <Col md>
                             <FloatingLabel label={"E-mail"}
                                            controlId="floatingTextarea7">
-                                <Form.Control isInvalid={!!errors.email} name={"email"} value={values.email} onChange={(e) => {
-                                    handleChange(e)
-                                    dispatch({
-                                        type: SET_RESERVATION, payload: {email: e.currentTarget.value}
-                                    })
-                                }} className={"bg-dark text-white"} placeholder="E-mail"/>
+                                <Form.Control isInvalid={!!errors.email} name={"email"} value={values.email}
+                                              onChange={(e) => {
+                                                  handleChange(e)
+                                                  dispatch({
+                                                      type: SET_RESERVATION, payload: {email: e.currentTarget.value}
+                                                  })
+                                              }} className={"bg-dark text-white"} placeholder="E-mail"/>
                             </FloatingLabel>
                             <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
                         </Col>
@@ -243,7 +273,8 @@ const Reservation = () => {
                         <Col md>
                             <FloatingLabel label={"Numer prawa jazdy"}
                                            controlId="floatingTextarea8">
-                                <Form.Control isInvalid={!!errors.carlicense} name={"carlicense"} value={values.carlicense} onChange={(e) => {
+                                <Form.Control isInvalid={!!errors.carlicense} name={"carlicense"}
+                                              value={values.carlicense} onChange={(e) => {
                                     handleChange(e)
                                     dispatch({
                                         type: SET_RESERVATION, payload: {carlicense: e.currentTarget.value}
@@ -255,7 +286,8 @@ const Reservation = () => {
                         <Col md>
                             <FloatingLabel label={"Numer dokumentu tożsamości"}
                                            controlId="floatingTextarea9">
-                                <Form.Control isInvalid={!!errors.documentid} name={"documentid"} className={"bg-dark text-white"}
+                                <Form.Control isInvalid={!!errors.documentid} name={"documentid"}
+                                              className={"bg-dark text-white"}
                                               value={values.documentid}
                                               onChange={(e) => {
                                                   handleChange(e)
@@ -273,24 +305,26 @@ const Reservation = () => {
                         <Col xl={6} lg={6} md={6}>
                             <FloatingLabel label={"NIP(opcjonalnie)"}
                                            controlId="floatingTextarea1">
-                                <Form.Control isInvalid={!!errors.nip} name={"nip"} value={values.nip} onChange={(e) => {
-                                    handleChange(e)
-                                    dispatch({
-                                        type: SET_RESERVATION, payload: {nip: e.currentTarget.value}
-                                    })
-                                }} className={"bg-dark text-white"} placeholder="NIP(opcjonalnie)"/>
+                                <Form.Control isInvalid={!!errors.nip} name={"nip"} value={values.nip}
+                                              onChange={(e) => {
+                                                  handleChange(e)
+                                                  dispatch({
+                                                      type: SET_RESERVATION, payload: {nip: e.currentTarget.value}
+                                                  })
+                                              }} className={"bg-dark text-white"} placeholder="NIP(opcjonalnie)"/>
                             </FloatingLabel>
                             <Form.Control.Feedback type={"invalid"}>{errors.nip}</Form.Control.Feedback>
                         </Col>
                         <Col xl={6} lg={6} md={6}>
                             <FloatingLabel label={"Pesel"}
                                            controlId="floatingTextarea10">
-                                <Form.Control isInvalid={!!errors.personid} name={"personid"} value={values.personid} onChange={(e) => {
-                                    handleChange(e)
-                                    dispatch({
-                                        type: SET_RESERVATION, payload: {personid: e.currentTarget.value}
-                                    })
-                                }} className={"bg-dark text-white"} placeholder="Pesel"/>
+                                <Form.Control isInvalid={!!errors.personid} name={"personid"} value={values.personid}
+                                              onChange={(e) => {
+                                                  handleChange(e)
+                                                  dispatch({
+                                                      type: SET_RESERVATION, payload: {personid: e.currentTarget.value}
+                                                  })
+                                              }} className={"bg-dark text-white"} placeholder="Pesel"/>
                             </FloatingLabel>
                             <Form.Control.Feedback type={"invalid"}>{errors.personid}</Form.Control.Feedback>
                         </Col>
@@ -322,20 +356,26 @@ const Reservation = () => {
                         key={index}
                         method={method}
                         isActive={paymentMethod === index}
-                        setpayment={() => setPaymentMethod(index)}
+                        setpayment={() => {
+                            setPaymentMethod(index)
+                            values.showCard = !values.showCard
+                        }}
                     />)
                 })}
                 {paymentMethod === 0 && (<Row>
                     <Col xl={4} lg={4} md={4}>
                         <Form.Label htmlFor="card_number">Numer karty płatniczej</Form.Label>
-                        <Form.Control className={"p-2"}
+                        <Form.Control name={"card.number"} className={"p-2"}
                                       type="text"
                                       id="card_number"
+                                      onChange={handleChange}
+                                      value={values.card.number}
                         />
                     </Col>
                     <Form.Group xl={1} lg={1} md={1} as={Col} controlId="card_expiration">
                         <Form.Label>Ważność</Form.Label>
-                        <Form.Select defaultValue="" className={"p-2"}>
+                        <Form.Select value={values.card.expirationMonth} name={"card.expirationMonth"}
+                                     onChange={handleChange} defaultValue="" className={"p-2"}>
                             {months.map((month) => (<option key={month}>{month}</option>))}
                         </Form.Select>
                     </Form.Group>
@@ -344,13 +384,16 @@ const Reservation = () => {
                     </Col>
                     <Form.Group xl={2} lg={2} md={2} as={Col} controlId="card_expiration1"
                                 className={"d-flex flex-column align-items-end justify-content-end"}>
-                        <Form.Select className={"p-2"}>
+                        <Form.Select value={values.card.expirationYear} name={"card.expirationYear"}
+                                     onChange={handleChange} className={"p-2"}>
                             {years.map((year) => (<option key={year}>{year}</option>))}
                         </Form.Select>
                     </Form.Group>
                     <Col xl={1} lg={1} md={1}>
                         <Form.Label htmlFor="cvv">Kod CVV</Form.Label>
                         <Form.Control
+                            value={values.card.cvv}
+                            name={"card.cvv"} onChange={handleChange}
                             type="text"
                             id="cvv"
                             className={"p-2"}
@@ -378,15 +421,23 @@ const Reservation = () => {
             </Col>
             <div className={"d-flex flex-column gap-3 mt-3 mb-3"}>
                 <Form.Check
+                    name={"rules"}
+                    onChange={handleChange}
                     type="switch"
                     id="custom-switch"
                     label="Znam i akceptuję regulamin oraz politykę prywatności JCars"
+                    isInvalid={!!errors.rules}
+                    feedback={errors.rules}
                 />
                 <Form.Check
-                    disabled={paymentMethod === 1}
+                    disabled={!values.showCard}
+                    name={"rules_card"}
+                    onChange={handleChange}
                     type="switch"
                     label="Wyrażam zgodę na obciążenie mojej karty płatniczej kosztem najmu oraz kosztem przyszłych transakcji."
                     id="disabled-custom-switch"
+                    feedback={errors.rules_card}
+                    isInvalid={!!errors.rules_card}
                 />
             </div>
             <div className={"d-flex flex-row justify-content-start"}>
