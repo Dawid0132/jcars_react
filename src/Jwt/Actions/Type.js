@@ -11,4 +11,5 @@ export const CLEAR_RESERVATION = "CLEAR_RESERVATION";
 export const ADD_CARS = "ADD_CARS";
 export const ADD_TO_LIST_ADD = "ADD_TO_LIST_ADD";
 export const REMOVE_FROM_LIST_ADD = "REMOVE_FROM_LIST_ADD";
+export const ADD_MODELS = "ADD_MODELS";
 export const CLEAR_LIST_ADD = "CLEAR_LIST_ADD";

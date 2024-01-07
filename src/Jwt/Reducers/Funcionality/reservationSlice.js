@@ -1,15 +1,38 @@
 import {CLEAR_RESERVATION, SET_RESERVATION} from "../../Actions/Type";
+import {forEach} from "react-bootstrap/ElementChildren";
+import reservation from "../../../Components/Reservation/Reservation";
 
-const initialState = {}
+const initialState = {
+    reservation: [
+        {startDate: new Date()},
+        {endDate: new Date()}
+    ]
+}
 
 export default function (state = initialState, action) {
     const {type, payload} = action;
 
     switch (type) {
         case SET_RESERVATION:
-            return {...state, payload}
+            let key = true;
+            const updatedItems = state.reservation.map((data, index) => {
+                for (let indexData in data) {
+                    for (let indexPayload in payload) {
+                        if (indexData === indexPayload) {
+                            key = false;
+                            return {...data, ...payload}
+                        }
+                    }
+                }
+                return data;
+            })
+            if (key) {
+                return {...state, reservation: [...state.reservation, payload]}
+            } else {
+                return {...state, reservation: updatedItems};
+            }
         case CLEAR_RESERVATION:
-            return {}
+            return []
         default:
             return state;
     }

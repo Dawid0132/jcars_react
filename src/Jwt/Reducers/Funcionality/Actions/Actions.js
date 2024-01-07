@@ -1,7 +1,12 @@
-import {ADD_CARS,SIZE_CHANGED} from "../../../Actions/Type";
+import {ADD_CARS, ADD_MODELS, SIZE_CHANGED} from "../../../Actions/Type";
 
 export const addCars = (data) => ({
     type: ADD_CARS,
+    payload: data
+})
+
+export const addModels = (data) => ({
+    type: ADD_MODELS,
     payload: data
 })
 

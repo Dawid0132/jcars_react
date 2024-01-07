@@ -6,7 +6,9 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import PaymentMethod from "./PaymentMethod";
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_TO_LIST_ADD} from "../../Jwt/Actions/Type";
+import {ADD_TO_LIST_ADD, SET_RESERVATION} from "../../Jwt/Actions/Type";
+import * as yup from 'yup';
+import {Formik, useFormik} from "formik";
 
 const url = "http://localhost:8080/api/jcars";
 
@@ -45,6 +47,20 @@ const Reservation = () => {
 
     const [years, setYears] = useState(yearsExpiration);
 
+    const signupSchema = yup.object().shape({
+        firstname: yup.string().required('Required'), lastname: yup.string().required('Required'), nip: yup.string(),
+        address: yup.string().required('Required'),
+        zipcode: yup.string().required('Required'),
+        city: yup.string().required('Required'),
+        promotioncode: yup.string().required('Required'),
+        phone: yup.string().required('Required'),
+        email: yup.string().required('Required'),
+        carlicense: yup.string().required('Required'),
+        documentid: yup.string().required('Required'),
+        personid: yup.string().required('Required'),
+        carlicense: yup.string().required('Required'),
+    });
+
 
     async function fetchLimits() {
         await axios.get(`${url}/getlimits`).then((resp) => {
@@ -80,7 +96,27 @@ const Reservation = () => {
     }
 
     return (<Container className={"text-white d-flex flex-column mt-5"}>
-        <Form onSubmit={handleSubmit}>
+        <Formik
+            validationSchema={signupSchema}
+            initialValues={{
+                firstname: '',
+                lastname: '',
+                nip: '',
+                address: '',
+                zipcode: '',
+                city: '',
+                promotioncode: '',
+                phone: '',
+                email: '',
+                carlicense: '',
+                documentid: '',
+                personid: '',
+                carlicense: '',
+            }} onSubmit={(values) => {
+            setTimeout(() => {
+                console.log("ok");
+            }, 400);
+        }}>{({handleSubmit, handleChange, values, touched, errors}) => (<Form onSubmit={handleSubmit}>
             <div>
                 <h1 className={"fw-bold"}>Rezerwacja</h1>
                 <div className={"border-5 border-warning border-bottom w-25"}></div>
@@ -92,153 +128,171 @@ const Reservation = () => {
                     </h3>
                     <Row className={"gap-2"}>
                         <Col md>
-                            <FloatingLabel label={"Imię i nazwisko"}
-                                           controlId="floatingTextarea">
-                                <Form.Control className={"bg-dark text-white"}
-                                              value={reservation.firstname}
-                                              placeholder="Imię i nazwisko"
-                                              onChange={(e) => {
-                                                  /*dispatch(fullname(e.currentTarget.value));*/
-                                                  dispatch({
-                                                      type: ADD_TO_LIST_ADD,
-                                                      payload: {firstname: e.currentTarget.value}
-                                                  })
-                                              }}
-                                />
-                            </FloatingLabel>
+                            <Form.Group>
+                                <FloatingLabel label={"Imię i nazwisko"}
+                                               controlId="floatingTextarea">
+                                    <Form.Control className={"bg-dark text-white"}
+                                                  name={"firstname"}
+                                                  value={values.firstname}
+                                                  placeholder="Pierwsze imię"
+                                                  onChange={(e) => {
+                                                      handleChange(e)
+                                                      dispatch({
+                                                          type: SET_RESERVATION,
+                                                          payload: {firstname: e.currentTarget.value}
+                                                      })
+                                                  }}
+                                                  isInvalid={!!errors.firstname}
+                                    />
+                                </FloatingLabel>
+                                <Form.Control.Feedback type={"invalid"}>{errors.firstname}</Form.Control.Feedback>
+                            </Form.Group>
                         </Col>
                         <Col md>
-                            <FloatingLabel label={"NIP(opcjonalnie)"}
+                            <FloatingLabel label={"Nazwisko"}
                                            controlId="floatingTextarea1">
-                                <Form.Control value={reservation.nip} onChange={(e) => {
-                                    /*dispatch(nip(e.currentTarget.value))*/
+                                <Form.Control isInvalid={!!errors.lastname} name={"lastname"} value={values.lastname} onChange={(e) => {
+                                    handleChange(e)
                                     dispatch({
-                                        type: ADD_TO_LIST_ADD,
-                                        payload: {nip: e.currentTarget.value}
+                                        type: SET_RESERVATION, payload: {nip: e.currentTarget.value}
                                     })
                                 }} className={"bg-dark text-white"} placeholder="NIP(opcjonalnie)"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.nip}</Form.Control.Feedback>
                         </Col>
                     </Row>
                     <Row className={"gap-2"}>
                         <Col md>
                             <FloatingLabel label={"Adres zameldowania"}
                                            controlId="floatingTextarea2">
-                                <Form.Control value={reservation.address} onChange={(e) => {
-                                    /*dispatch(address(e.currentTarget.value))*/
+                                <Form.Control isInvalid={!!errors.address} name={"address"} value={values.address} onChange={(e) => {
+                                    handleChange(e)
                                     dispatch({
-                                        type: ADD_TO_LIST_ADD,
-                                        payload: {address: e.currentTarget.value}
+                                        type: SET_RESERVATION, payload: {address: e.currentTarget.value}
                                     })
                                 }} className={"bg-dark text-white"} placeholder="Adres zameldowania"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.address}</Form.Control.Feedback>
                         </Col>
                         <Col md>
                             <FloatingLabel label={"Kod pocztowy"}
                                            controlId="floatingTextarea3">
-                                <Form.Control value={reservation.zipcode} onChange={(e) => {
-                                    /*dispatch(zipcode(e.currentTarget.value))*/
+                                <Form.Control isInvalid={!!errors.zipcode} name={"zipcode"} value={values.zipcode} onChange={(e) => {
+                                    handleChange(e)
                                     dispatch({
-                                        type: ADD_TO_LIST_ADD,
-                                        payload: {zipcode: e.currentTarget.value}
+                                        type: SET_RESERVATION, payload: {zipcode: e.currentTarget.value}
                                     })
                                 }} className={"bg-dark text-white"} placeholder="Kod pocztowy"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.zipcode}</Form.Control.Feedback>
                         </Col>
                     </Row>
                     <Row className={"gap-2"}>
                         <Col md>
                             <FloatingLabel label={"Miejsowość"}
                                            controlId="floatingTextarea4">
-                                <Form.Control value={reservation.city} onChange={(e) => {
-                                    /*dispatch(city(e.currentTarget.value))*/
+                                <Form.Control isInvalid={!!errors.city} name={"city"} value={values.city} onChange={(e) => {
+                                    handleChange(e)
                                     dispatch({
-                                        type: ADD_TO_LIST_ADD,
-                                        payload: {city: e.currentTarget.value}
+                                        type: SET_RESERVATION, payload: {city: e.currentTarget.value}
                                     })
                                 }} className={"bg-dark text-white"} placeholder="Miejsowość"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.city}</Form.Control.Feedback>
                         </Col>
                         <Col md>
                             <FloatingLabel label={"Kod Stałego Klienta"}
                                            controlId="floatingTextarea5">
-                                <Form.Control value={reservation.promotioncode} onChange={(e) => {
-                                    /*dispatch(promotioncode(e.currentTarget.value))*/
+                                <Form.Control isInvalid={!!errors.promotioncode} name={"promotioncode"} value={values.promotioncode} onChange={(e) => {
+                                    handleChange(e)
                                     dispatch({
-                                        type: ADD_TO_LIST_ADD,
-                                        payload: {promotioncode: e.currentTarget.value}
+                                        type: SET_RESERVATION, payload: {promotioncode: e.currentTarget.value}
                                     })
                                 }} className={"bg-dark text-white"} placeholder="Kod Stałego Klienta"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.promotioncode}</Form.Control.Feedback>
                         </Col>
                     </Row>
                     <Row className={"gap-2"}>
                         <Col md>
                             <FloatingLabel label={"telefon"}
                                            controlId="floatingTextarea6">
-                                <Form.Control value={reservation.phone} onChange={(e) => {
-                                    /*dispatch(phone(e.currentTarget.value))*/
+                                <Form.Control isInvalid={!!errors.phone} name={"phone"} value={values.phone} onChange={(e) => {
+                                    handleChange(e)
                                     dispatch({
-                                        type: ADD_TO_LIST_ADD,
-                                        payload: {phone: e.currentTarget.value}
+                                        type: SET_RESERVATION, payload: {phone: e.currentTarget.value}
                                     })
                                 }} className={"bg-dark text-white"} placeholder="telefon"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.phone}</Form.Control.Feedback>
                         </Col>
                         <Col md>
                             <FloatingLabel label={"E-mail"}
                                            controlId="floatingTextarea7">
-                                <Form.Control value={reservation.email} onChange={(e) => {
-                                    /*dispatch(email(e.currentTarget.value))*/
+                                <Form.Control isInvalid={!!errors.email} name={"email"} value={values.email} onChange={(e) => {
+                                    handleChange(e)
                                     dispatch({
-                                        type: ADD_TO_LIST_ADD,
-                                        payload: {email: e.currentTarget.value}
+                                        type: SET_RESERVATION, payload: {email: e.currentTarget.value}
                                     })
                                 }} className={"bg-dark text-white"} placeholder="E-mail"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
                         </Col>
                     </Row>
                     <Row className={"gap-2"}>
                         <Col md>
                             <FloatingLabel label={"Numer prawa jazdy"}
                                            controlId="floatingTextarea8">
-                                <Form.Control value={reservation.carlicense} onChange={(e) => {
-                                    /*dispatch(carlicense(e.currentTarget.value))*/
+                                <Form.Control isInvalid={!!errors.carlicense} name={"carlicense"} value={values.carlicense} onChange={(e) => {
+                                    handleChange(e)
                                     dispatch({
-                                        type: ADD_TO_LIST_ADD,
-                                        payload: {carlicense: e.currentTarget.value}
+                                        type: SET_RESERVATION, payload: {carlicense: e.currentTarget.value}
                                     })
                                 }} className={"bg-dark text-white"} placeholder="Numer prawa jazdy"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.carlicense}</Form.Control.Feedback>
                         </Col>
                         <Col md>
                             <FloatingLabel label={"Numer dokumentu tożsamości"}
                                            controlId="floatingTextarea9">
-                                <Form.Control className={"bg-dark text-white"}
-                                              value={reservation.documentid}
+                                <Form.Control isInvalid={!!errors.documentid} name={"documentid"} className={"bg-dark text-white"}
+                                              value={values.documentid}
                                               onChange={(e) => {
-                                                  /*dispatch(documentid(e.currentTarget.value))*/
+                                                  handleChange(e)
                                                   dispatch({
-                                                      type: ADD_TO_LIST_ADD,
+                                                      type: SET_RESERVATION,
                                                       payload: {documentid: e.currentTarget.value}
                                                   })
                                               }}
                                               placeholder="Numer dokumentu tożsamości"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.documentid}</Form.Control.Feedback>
                         </Col>
                     </Row>
                     <Row>
                         <Col xl={6} lg={6} md={6}>
+                            <FloatingLabel label={"NIP(opcjonalnie)"}
+                                           controlId="floatingTextarea1">
+                                <Form.Control isInvalid={!!errors.nip} name={"nip"} value={values.nip} onChange={(e) => {
+                                    handleChange(e)
+                                    dispatch({
+                                        type: SET_RESERVATION, payload: {nip: e.currentTarget.value}
+                                    })
+                                }} className={"bg-dark text-white"} placeholder="NIP(opcjonalnie)"/>
+                            </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.nip}</Form.Control.Feedback>
+                        </Col>
+                        <Col xl={6} lg={6} md={6}>
                             <FloatingLabel label={"Pesel"}
                                            controlId="floatingTextarea10">
-                                <Form.Control value={reservation.personid} onChange={(e) => {
-                                    /*dispatch(personid(e.currentTarget.value))*/
+                                <Form.Control isInvalid={!!errors.personid} name={"personid"} value={values.personid} onChange={(e) => {
+                                    handleChange(e)
                                     dispatch({
-                                        type: ADD_TO_LIST_ADD,
-                                        payload: {personid: e.currentTarget.value}
+                                        type: SET_RESERVATION, payload: {personid: e.currentTarget.value}
                                     })
                                 }} className={"bg-dark text-white"} placeholder="Pesel"/>
                             </FloatingLabel>
+                            <Form.Control.Feedback type={"invalid"}>{errors.personid}</Form.Control.Feedback>
                         </Col>
                     </Row>
                 </div>
@@ -313,7 +367,11 @@ const Reservation = () => {
             <Col xl={6} lg={6} md={6} xs={12} sm={12} className={"mt-3"}>
                 <FloatingLabel label={"Zostaw wiadomość"}
                                controlId="floatingTextarea7">
-                    <Form.Control style={{
+                    <Form.Control value={reservation.message} onChange={(e) => {
+                        dispatch({
+                            type: SET_RESERVATION, payload: {message: e.currentTarget.value}
+                        })
+                    }} style={{
                         height: "200px"
                     }} className={"bg-dark text-white"} placeholder="Zostaw wiadomość"/>
                 </FloatingLabel>
@@ -336,7 +394,8 @@ const Reservation = () => {
                     Rezerwacja
                 </Button>
             </div>
-        </Form>
+        </Form>)}
+        </Formik>
     </Container>)
 }
 

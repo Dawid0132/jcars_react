@@ -3,7 +3,8 @@ import {useEffect, useRef, useState} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {forEach} from "react-bootstrap/ElementChildren";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {SET_RESERVATION} from "../../Jwt/Actions/Type";
 
 
 const getTotalKmLimit = (days, limits) => {
@@ -114,6 +115,8 @@ const Reservation_Card = (prop) => {
 
     const adds = useSelector((state) => state.adds.adds);
 
+    const dispatch = useDispatch();
+
     let handleColor = (time) => {
         return time.getHours() > 12 ? "text-success" : "text-error";
     }
@@ -149,7 +152,13 @@ const Reservation_Card = (prop) => {
                 <DatePicker
                     /*closeOnScroll={true}*/
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={(date) => {
+                        setStartDate(date)
+                        dispatch({
+                            type: SET_RESERVATION,
+                            payload: {startDate: date}
+                        })
+                    }}
                     selectsStart
                     startDate={startDate}
                     endDate={endDate}
@@ -160,7 +169,13 @@ const Reservation_Card = (prop) => {
                 <DatePicker
                     /*closeOnScroll={true}*/
                     selected={endDate}
-                    onChange={(date) => setEndDate(date)}
+                    onChange={(date) => {
+                        setEndDate(date)
+                        dispatch({
+                            type: SET_RESERVATION,
+                            payload: {endDate: date}
+                        })
+                    }}
                     selectsEnd
                     startDate={startDate}
                     endDate={endDate}

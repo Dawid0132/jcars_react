@@ -1,27 +1,42 @@
 import axios from "axios";
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {Container, Pagination, Row} from "react-bootstrap";
 import Card_car_lesser_then_md from "../../HomePage/Body/Card_car_lesser_then_md";
 import Card_car_bigger_then_md from "../../HomePage/Body/Card_car_bigger_then_md";
 import {useDispatch, useSelector} from "react-redux";
 import {createRef, useRef, useState} from "react";
-import {setLargerThenMd, setLesserThenMd} from "../../../Jwt/Reducers/Funcionality/Actions/Actions";
+import {addModels, setLargerThenMd, setLesserThenMd} from "../../../Jwt/Reducers/Funcionality/Actions/Actions";
 
 const url = "http://localhost:8080/api/jcars/cars/brand/";
 
+const url1 = "http://localhost:8080/api/jcars/car-models/brand/";
+
 const Brands = () => {
 
-    const cars = useLoaderData().res;
+    let {id} = useParams();
 
+    const cars = useLoaderData().res;
     const {sizeChanged} = useSelector((state) => state.size);
     const [isBigger, setIsBigger] = useState(false);
     const dispatch = useDispatch();
     const [active, setActive] = useState(0);
     const [pagesOfCards, setPagesOfCards] = useState({})
 
+
     useEffect(() => {
-        console.log(pagesOfCards);
+        const fetchModels = async () => {
+            try {
+                const {data: response} = await axios.get(url1 + id);
+                dispatch(addModels(response));
+            } catch (e) {
+                console.error(e.message);
+            }
+        }
+        fetchModels();
+    }, [id])
+
+    useEffect(() => {
         function handleResize() {
             if (window.innerWidth >= 992) {
                 setIsBigger(false);

@@ -1,21 +1,18 @@
 import {Dropdown, Nav, NavItem, NavLink} from "react-bootstrap";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
+import {Navigate} from "react-router";
+import {useSelector} from "react-redux";
 
 const url = "http://localhost:8080/api/jcars/car-brands";
 
-const url1 = "http://localhost:8080/api/jcars/car-models/brand/";
-
 const NavLinkCars = () => {
 
-    const [selectedBrand, setSelectedBrand] = useState(1);
+    const {models: brandModels} = useSelector((state) => state.models);
 
     const [brands, setBrands] = useState([]);
     const [loadingBrands, setLoadingBrands] = useState(true);
-
-    const [models, setModels] = useState([]);
-    const [loadingModels, setLoadingModels] = useState(true);
 
     useEffect(() => {
         const fetchBrands = async () => {
@@ -31,22 +28,6 @@ const NavLinkCars = () => {
         fetchBrands();
     }, [])
 
-    useEffect(() => {
-        const fetchModels = async () => {
-            setLoadingModels(true);
-            try {
-                const {data: response} = await axios.get(url1 + selectedBrand);
-                setModels(response)
-            } catch (e) {
-                console.error(e.message);
-            }
-            setLoadingModels(false);
-        }
-
-        fetchModels();
-
-    }, [selectedBrand])
-
 
     return (<Nav fill={true} variant={"tabs"}>
         <Nav.Item>
@@ -58,12 +39,9 @@ const NavLinkCars = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu>
                 {!loadingBrands && brands.map((brand) => {
-                    return (
-                        <Dropdown.Item href={`/cars/brands/${brand.id}`} id={`${brand.id}`} onClick={(e) => {
-                            setSelectedBrand(e.currentTarget.id);
-                        }}>
-                            {brand.name}
-                        </Dropdown.Item>)
+                    return (<Dropdown.Item href={`/cars/brands/${brand.id}`} id={`${brand.id}`}>
+                        {brand.name}
+                    </Dropdown.Item>)
                 })}
             </Dropdown.Menu>
         </Dropdown>
@@ -72,13 +50,10 @@ const NavLinkCars = () => {
                 Models
             </Dropdown.Toggle>
             <Dropdown.Menu>
-                {!loadingModels && models.map((model) => {
-                    return (
-                        <Dropdown.Item href={`/cars/models/${model.id}`} id={`${model.id}`} onClick={(e) => {
-
-                        }}>
-                            {model.name}
-                        </Dropdown.Item>)
+                {brandModels && brandModels.map((model) => {
+                    return (<Dropdown.Item href={`/cars/models/${model.id}`} id={`${model.id}`}>
+                        {model.name}
+                    </Dropdown.Item>)
                 })}
             </Dropdown.Menu>
         </Dropdown>

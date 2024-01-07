@@ -63,7 +63,7 @@ function Navbar_component({onClick, currentUser}) {
                             <small>{item}</small>
                         </Nav.Link>)
                     })}
-                    <Nav.Link><Button variant={"outline-warning"}
+                    <Nav.Link href={"/cars"}><Button variant={"outline-warning"}
                                       className={"text-uppercase text-white fw-bold rounded-4"}><small>Zarezerwuj
                         online</small></Button></Nav.Link>
                     {svg.map((item, index) => {
