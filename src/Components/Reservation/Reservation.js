@@ -10,6 +10,9 @@ import {ADD_TO_LIST_ADD, SET_RESERVATION} from "../../Jwt/Actions/Type";
 import * as yup from 'yup';
 import {Formik, useFormik} from "formik";
 import {number} from "yup";
+import {getIn} from "formik";
+import {register} from "../../Jwt/Actions/auth";
+import {reservation as reservationMethod} from "../../Jwt/Actions/reservation";
 
 const url = "http://localhost:8080/api/jcars";
 
@@ -24,13 +27,15 @@ function yearsExpiration() {
 }
 
 
-const Reservation = () => {
+const Reservation = builder => {
 
     const car = useLoaderData().res;
 
-    const reservation = useSelector((state) => state.reservation);
+    const [successfully, setSuccessfully] = useState(false);
 
-    const addsAll = useSelector((state) => state.adds);
+    const reservation = useSelector((state) => state.reservation.reservation);
+
+    const addsAll = useSelector((state) => state.adds.adds);
 
     const dispatch = useDispatch();
 
@@ -57,7 +62,7 @@ const Reservation = () => {
         address: yup.string().required('Required'),
         zipcode: yup.string().required('Required'),
         city: yup.string().required('Required'),
-        promotioncode: yup.string().required('Required'),
+        promotioncode: yup.string(),
         phone: yup.string().required('Required'),
         email: yup.string().required('Required'),
         documentid: yup.string().required('Required'),
@@ -65,21 +70,28 @@ const Reservation = () => {
         carlicense: yup.string().required('Required'),
         rules: yup.bool().required().oneOf([true], 'Terms must be accepted'),
         rules_card: yup.bool().when("showCard", {
-            is: true, then: yup.string().required().oneOf([true], 'Terms must be accepted')
+            is: true, then: () => yup.bool().required().oneOf([true], 'Terms must be accepted')
         }),
         showCard: yup.bool(),
-        card: yup.object({
-            number: yup.string().when("showCard", {
-                is: true, then: yup.string().required("Required")
-            }), expirationMonth: yup.string().when("showCard", {
-                is: true, then: yup.string().required("Required")
-            }), expirationYear: yup.string().when("showCard", {
-                is: true, then: yup.string().required("Required")
-            }), cvv: yup.string().when("showCard", {
-                is: true, then: yup.string().required("Required")
+        card: yup.object().shape({
+            number: yup.number().when("showCard", {
+                is: true, then: () => yup.number().required("Required").min(16).max(16)
+            }), expirationMonth: yup.number().when("showCard", {
+                is: true, then: () => yup.number().required("Required"),
+            }), expirationYear: yup.number().when("showCard", {
+                is: true, then: () => yup.number().required("Required")
+            }), cvv: yup.number().when("showCard", {
+                is: true, then: () => yup.number().required("Required").max(3).min(3)
             })
         })
     })
+
+    useEffect(() => {
+        dispatch({
+            type: SET_RESERVATION,
+            payload: {carId: car.id}
+        })
+    }, [car])
 
 
     async function fetchLimits() {
@@ -136,8 +148,13 @@ const Reservation = () => {
                 }
             }} onSubmit={(values) => {
             setTimeout(() => {
-                console.log(reservation);
-                console.log(addsAll);
+                dispatch(reservationMethod(reservation, addsAll))
+                    .then(() => {
+                        setSuccessfully(true)
+                    })
+                    .catch(() => {
+                        setSuccessfully(false)
+                    })
             }, 400);
         }}>{({handleSubmit, handleChange, values, touched, errors}) => (<Form onSubmit={handleSubmit}>
             <div>
@@ -178,7 +195,7 @@ const Reservation = () => {
                                               onChange={(e) => {
                                                   handleChange(e)
                                                   dispatch({
-                                                      type: SET_RESERVATION, payload: {nip: e.currentTarget.value}
+                                                      type: SET_RESERVATION, payload: {lastname: e.currentTarget.value}
                                                   })
                                               }} className={"bg-dark text-white"} placeholder="NIP(opcjonalnie)"/>
                             </FloatingLabel>
@@ -359,6 +376,10 @@ const Reservation = () => {
                         setpayment={() => {
                             setPaymentMethod(index)
                             values.showCard = !values.showCard
+                            dispatch({
+                                type: SET_RESERVATION,
+                                payload: {cardPay: values.showCard}
+                            })
                         }}
                     />)
                 })}
@@ -366,6 +387,7 @@ const Reservation = () => {
                     <Col xl={4} lg={4} md={4}>
                         <Form.Label htmlFor="card_number">Numer karty płatniczej</Form.Label>
                         <Form.Control name={"card.number"} className={"p-2"}
+                                      isInvalid={!!getIn(errors, 'card.number')}
                                       type="text"
                                       id="card_number"
                                       onChange={handleChange}
@@ -374,8 +396,10 @@ const Reservation = () => {
                     </Col>
                     <Form.Group xl={1} lg={1} md={1} as={Col} controlId="card_expiration">
                         <Form.Label>Ważność</Form.Label>
-                        <Form.Select value={values.card.expirationMonth} name={"card.expirationMonth"}
-                                     onChange={handleChange} defaultValue="" className={"p-2"}>
+                        <Form.Select isInvalid={getIn(errors, 'card.expirationMonth')}
+                                     value={values.card.expirationMonth}
+                                     name={"card.expirationMonth"}
+                                     onChange={handleChange} className={"p-2"}>
                             {months.map((month) => (<option key={month}>{month}</option>))}
                         </Form.Select>
                     </Form.Group>
@@ -384,7 +408,9 @@ const Reservation = () => {
                     </Col>
                     <Form.Group xl={2} lg={2} md={2} as={Col} controlId="card_expiration1"
                                 className={"d-flex flex-column align-items-end justify-content-end"}>
-                        <Form.Select value={values.card.expirationYear} name={"card.expirationYear"}
+                        <Form.Select isInvalid={getIn(errors, 'card.expirationYear')}
+                                     value={values.card.expirationYear}
+                                     name={"card.expirationYear"}
                                      onChange={handleChange} className={"p-2"}>
                             {years.map((year) => (<option key={year}>{year}</option>))}
                         </Form.Select>
@@ -392,6 +418,7 @@ const Reservation = () => {
                     <Col xl={1} lg={1} md={1}>
                         <Form.Label htmlFor="cvv">Kod CVV</Form.Label>
                         <Form.Control
+                            isInvalid={getIn(errors, 'card.cvv')}
                             value={values.card.cvv}
                             name={"card.cvv"} onChange={handleChange}
                             type="text"

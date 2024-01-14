@@ -1,4 +1,4 @@
-import {CLEAR_RESERVATION, SET_RESERVATION} from "../../Actions/Type";
+import {ADD_RESERVATION, CLEAR_RESERVATION, SET_RESERVATION} from "../../Actions/Type";
 import {forEach} from "react-bootstrap/ElementChildren";
 import reservation from "../../../Components/Reservation/Reservation";
 
@@ -30,26 +30,8 @@ export default function (state = initialState, action) {
             }
 
             return {...state, reservation: updatedReservation};
-
-
-
-        /*let key = true;
-        const updatedItems = state.reservation.map((data, index) => {
-            for (let indexData in data) {
-                for (let indexPayload in payload) {
-                    if (indexData === indexPayload) {
-                        key = false;
-                        return {...data, ...payload}
-                    }
-                }
-            }
-            return data;
-        })
-        if (key) {
-            return {...state, reservation: [...state.reservation, payload]}
-        } else {
-            return {...state, reservation: updatedItems};
-        }*/
+        case ADD_RESERVATION:
+            return {reservation: payload}
         case CLEAR_RESERVATION:
             return []
         default:

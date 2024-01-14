@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {forEach} from "react-bootstrap/ElementChildren";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_RESERVATION} from "../../Jwt/Actions/Type";
+import {number} from "yup";
 
 
 const getTotalKmLimit = (days, limits) => {
@@ -138,6 +139,13 @@ const Reservation_Card = (prop) => {
         setDays(daysTotal);
         setTotal(total);
     })
+
+    useEffect(() => {
+        dispatch({
+            type: SET_RESERVATION,
+            payload: {total: total}
+        })
+    }, [total])
 
 
     return (<Card style={{

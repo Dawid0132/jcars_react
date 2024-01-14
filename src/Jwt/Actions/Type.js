@@ -7,6 +7,7 @@ export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const SIZE_CHANGED = "SIZE_CHANGED"
 export const SET_RESERVATION = "SET_RESERVATION";
+export const ADD_RESERVATION = "ADD_RESERVATION";
 export const CLEAR_RESERVATION = "CLEAR_RESERVATION";
 export const ADD_CARS = "ADD_CARS";
 export const ADD_TO_LIST_ADD = "ADD_TO_LIST_ADD";
