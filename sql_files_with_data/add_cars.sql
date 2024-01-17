@@ -1,0 +1,22 @@
+-- add cars
+insert into car(model_id,year,registration_plate,deposit,rental_price,available,milage,image_url) values (1,2023,"GD 54321",6000,900,true,50000,"https://images.pexels.com/photos/16918400/pexels-photo-16918400/free-photo-of-black-bmw-i8.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (2,2023,"GD 16754",5000,700,true,30000,"https://images.pexels.com/photos/17888840/pexels-photo-17888840/free-photo-of-bmw-m5-f90.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (3,2023,"GD 54632",4000,600,true,40000,"https://images.pexels.com/photos/12086412/pexels-photo-12086412.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (4,2023,"GD 43218",5000,600,true,60000,"https://images.pexels.com/photos/14667502/pexels-photo-14667502.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (5,2023,"GD 41290",5000,700,true,35000,"https://images.pexels.com/photos/18369291/pexels-photo-18369291/free-photo-of-a-mercedes-benz-s-class.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (6,2023,"GD 56123",4000,800,true,20000,"https://images.pexels.com/photos/13236249/pexels-photo-13236249.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (7,2023,"GD 90874",6000,1300,true,15000,"https://images.pexels.com/photos/18953419/pexels-photo-18953419/free-photo-of-porsche-911-carrera-driving-on-city-street.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (8,2023,"GD 56471",6000,1200,true,10000,"https://images.pexels.com/photos/19302258/pexels-photo-19302258/free-photo-of-porsche.jpeg?auto=compress&cs=tinysrgb&w=800"),
+        (9,2023,"GD 32167",7000,1600,true,35000,"https://images.pexels.com/photos/18602231/pexels-photo-18602231/free-photo-of-speed-of-light.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (10,2023,"GD 14562",12000,2600,true,10000,"https://images.pexels.com/photos/19273958/pexels-photo-19273958/free-photo-of-a-luxury-car-rolls-royce-phantom-on-the-street-at-night.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (11,2023,"GD 09832",7000,2000,true,20000,"https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (12,2023,"GD 45621",6000,1800,true,30000,"https://images.pexels.com/photos/17571487/pexels-photo-17571487/free-photo-of-an-audi-rs6-parked-outside-in-autumnal-scenery.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (13,2023,"GD 87214",13000,3000,true,10000,"https://images.pexels.com/photos/6872163/pexels-photo-6872163.jpeg?"),
+        (14,2023,"GD 14321",7000,2000,true,15000,"https://images.pexels.com/photos/3786091/pexels-photo-3786091.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (15,2023,"GD 54000",8000,2100,true,10000,"https://images.pexels.com/photos/9277200/pexels-photo-9277200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (16,2023,"GD 10000",9000,1800,true,15000,"https://images.pexels.com/photos/12565872/pexels-photo-12565872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (17,2023,"GD 40000",8000,1700,true,30000,"https://images.pexels.com/photos/977003/pexels-photo-977003.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (18,2023,"GD 60606",10000,2400,true,40000,"https://images.pexels.com/photos/13387266/pexels-photo-13387266.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (19,2023,"GD 32091",10000,2500,true,50000,"https://images.pexels.com/photos/15063615/pexels-photo-15063615/free-photo-of-lamborghini-huracan-parked-on-asphalt-road-at-sunset.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+        (20,2023,"GD 87420",9000,2300,true,30000,"https://images.pexels.com/photos/18238512/pexels-photo-18238512/free-photo-of-a-lamborghini-urus-on-the-street.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
+        

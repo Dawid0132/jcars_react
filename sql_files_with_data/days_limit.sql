@@ -1,0 +1,1 @@
+insert into days_limit(name,car_limit) values ("dzien",200),("tydzien",1400),("2tygodnie",2100),("miesiecznie",3000),("rocznie",30000)

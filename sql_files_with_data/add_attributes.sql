@@ -1,0 +1,13 @@
+insert into attributes(name) values("G30"),
+                                    ("Diesel"),
+                                    ("Benzyna"),
+                                    ("carplay"),
+                                    ("klimatyzacja"),
+                                    ("podgrzewane siedzenia"),
+                                    ("podgrzewana kierownica"),
+                                    ("2.0 190KM"),
+                                    ("3.2/ 0-100"),
+                                    ("LED"),
+                                    ("190KM"),
+                                    ("automatyczna"),
+                                    ("manualna")
