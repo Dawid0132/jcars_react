@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {Navigate} from "react-router";
 import {useSelector} from "react-redux";
 
-const url = "http://localhost:8080/api/jcars/car-brands";
+const url = "http://jauto.pl:8080/api/jcars/car-brands";
 
 const NavLinkCars = () => {
 

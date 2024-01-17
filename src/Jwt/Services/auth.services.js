@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = "http://jauto.pl:8080/api/auth/";
 
 const register = (firstname, lastname, email, password, phone, address, hasDrivingLicense) => {
     return axios.post(API_URL + "signup", {

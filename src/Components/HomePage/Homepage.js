@@ -10,7 +10,7 @@ import {addCars} from "../../Jwt/Reducers/Funcionality/Actions/Actions";
 import Loading from "../Loading";
 
 
-const url = "http://localhost:8080/api/jcars/cars";
+const url = "http://jauto.pl:8080/api/jcars/cars";
 
 const Homepage = () => {
 

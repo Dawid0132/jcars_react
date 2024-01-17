@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/jcars/reservations";
+const API_URL = "http://jauto.pl:8080/api/jcars/reservations";
 
 
 const reservation = (reservation, adds) => {

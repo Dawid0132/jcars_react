@@ -8,9 +8,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {createRef, useRef, useState} from "react";
 import {addModels, setLargerThenMd, setLesserThenMd} from "../../../Jwt/Reducers/Funcionality/Actions/Actions";
 
-const url = "http://localhost:8080/api/jcars/cars/brand/";
+const url = "http://jauto.pl:8080/api/jcars/cars/brand/";
 
-const url1 = "http://localhost:8080/api/jcars/car-models/brand/";
+const url1 = "http://jauto.pl:8080/api/jcars/car-models/brand/";
 
 const Brands = () => {
 

@@ -8,7 +8,7 @@ import axios from "axios";
 import {useLoaderData} from "react-router-dom";
 
 
-const url = "http://localhost:8080/api/jcars/cars";
+const url = "http://jauto.pl:8080/api/jcars/cars";
 
 const All = () => {
 

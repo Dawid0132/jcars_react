@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {setLargerThenMd, setLesserThenMd} from "../../../Jwt/Reducers/Funcionality/Actions/Actions";
 
-const url = "http://localhost:8080/cars";
+const url = "http://jauto.pl:8080/cars";
 
 const Body_component = () => {
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth.header";
 
-const API_URL = "http://localhost:8080/api/jcars";
+const API_URL = "http://jauto.pl:8080/api/jcars";
 
 const currentUser = JSON.parse(localStorage.getItem('user'))
 
