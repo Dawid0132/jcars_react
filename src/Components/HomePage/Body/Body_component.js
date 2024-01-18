@@ -63,7 +63,6 @@ const Body_component = () => {
                     }
                 )
                 }
-                })}
             </Row>
         </Container>
         <Col xs={12} lg={12} md={12} sm={12} xl={12} className={"mt-2 text-center"}>
