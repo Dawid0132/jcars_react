@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://jauto.pl:8080/api/jcars/reservations";
+const API_URL = `${process.env.REACT_APP_API_HOST}/reservations`;
 
 
 const reservation = (reservation, adds) => {

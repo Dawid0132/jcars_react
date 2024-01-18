@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = "http://localhost:8080/api/jcars"
+const url = `${process.env.REACT_APP_API_HOST}/api/jcars`;
 
 
 

@@ -14,7 +14,7 @@ import {getIn} from "formik";
 import {register} from "../../Jwt/Actions/auth";
 import {reservation as reservationMethod} from "../../Jwt/Actions/reservation";
 
-const url = "http://jauto.pl:8080/api/jcars";
+const url = `${process.env.REACT_APP_API_HOST}`;
 
 function yearsExpiration() {
     const years = [];
