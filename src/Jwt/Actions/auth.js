@@ -1,8 +1,8 @@
 import AuthServices from "../Services/auth.services";
 import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT, REGISTER_FAIL, REGISTER_SUCCESS, SET_MESSAGE} from "./Type";
 
-export const register = (firstname, lastname, email, password, phone, address, hasDrivingLicense) => (dispatch) => {
-    return AuthServices.register(firstname, lastname, address, phone, email, password, hasDrivingLicense).then((response) => {
+export const register = (data) => (dispatch) => {
+    return AuthServices.register(data).then((response) => {
         dispatch({
             type: REGISTER_SUCCESS
         })

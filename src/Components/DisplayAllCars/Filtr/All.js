@@ -8,7 +8,7 @@ import axios from "axios";
 import {useLoaderData} from "react-router-dom";
 
 
-const url = "{process.env.REACT_APP_API_HOST}/cars";
+const url = `${process.env.REACT_APP_API_HOST}/cars`;
 
 const All = () => {
 

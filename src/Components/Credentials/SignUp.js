@@ -12,11 +12,11 @@ const SignUp = () => {
     const dispatch = useDispatch();
 
     const signupSchema = yup.object().shape({
-        firstname: yup.string()
+        firstName: yup.string()
             .min(2, 'Too short!')
             .max(50, 'Too long')
             .required('Required'),
-        lastname: yup.string()
+        lastName: yup.string()
             .min(2, 'Too short')
             .max(50, 'Too long')
             .required('Required'),
@@ -27,7 +27,7 @@ const SignUp = () => {
             .min(8, 'Password is too short')
             .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, "Password must have minimum 8 characters at least one letter,one number and one special character")
             .required('Required'),
-        carlicense: yup.string()
+        hasDrivingLicense: yup.string()
             .required('Required'),
     });
 
@@ -37,7 +37,7 @@ const SignUp = () => {
         <Formik
             validationSchema={signupSchema}
             initialValues={{
-                firstname: '', lastname: '', email: '', password: '', phone: '', address: '', carlicense: ''
+                firstName: '', lastName: '', email: '', password: '', phone: '', address: '', hasDrivingLicense: ''
             }} onSubmit={(values) => {
             setTimeout(() => {
                 dispatch(register(values))
@@ -52,27 +52,27 @@ const SignUp = () => {
             <Row>
                 <Col xl={6} md={6} lg={6} sm={12} xs={12}>
                     <Form.Group>
-                        <Form.Label>Firstname <span className={"text-danger"}>*</span></Form.Label>
-                        <Form.Control name={"firstname"} onChange={handleChange}
-                                      value={values.firstname}
-                                      placeholder={"Enter your firstname"}
-                                      isValid={touched.firstname && !errors.firstname}
-                                      isInvalid={!!errors.firstname}
+                        <Form.Label>firstName <span className={"text-danger"}>*</span></Form.Label>
+                        <Form.Control name={"firstName"} onChange={handleChange}
+                                      value={values.firstName}
+                                      placeholder={"Enter your firstName"}
+                                      isValid={touched.firstName && !errors.firstName}
+                                      isInvalid={!!errors.firstName}
                         />
-                        <Form.Control.Feedback type={"invalid"}>{errors.firstname}</Form.Control.Feedback>
+                        <Form.Control.Feedback type={"invalid"}>{errors.firstName}</Form.Control.Feedback>
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Col>
                 <Col xl={6} md={6} lg={6} sm={12} xs={12}>
                     <Form.Group>
-                        <Form.Label>Lastname <span className={"text-danger"}>*</span></Form.Label>
-                        <Form.Control name={"lastname"} onChange={handleChange}
-                                      value={values.lastname}
-                                      placeholder={"Enter your lastname"}
-                                      isValid={touched.lastname && !errors.lastname}
-                                      isInvalid={!!errors.lastname}
+                        <Form.Label>lastName <span className={"text-danger"}>*</span></Form.Label>
+                        <Form.Control name={"lastName"} onChange={handleChange}
+                                      value={values.lastName}
+                                      placeholder={"Enter your lastName"}
+                                      isValid={touched.lastName && !errors.lastName}
+                                      isInvalid={!!errors.lastName}
                         />
-                        <Form.Control.Feedback type={"invalid"}>{errors.lastname}</Form.Control.Feedback>
+                        <Form.Control.Feedback type={"invalid"}>{errors.lastName}</Form.Control.Feedback>
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Col>
@@ -121,16 +121,16 @@ const SignUp = () => {
             <Col className={"mt-2"} xl={6} lg={6} md={6}>
                 <Form.Group>
                     <Form.Label>Car-license <span className={"text-danger"}>*</span></Form.Label>
-                    <Form.Select name={"carlicense"} onChange={handleChange}
-                                 value={values.carlicense}
-                                 isValid={touched.carlicense && !errors.carlicense}
-                                 isInvalid={!!errors.carlicense}
+                    <Form.Select name={"hasDrivingLicense"} onChange={handleChange}
+                                 value={values.hasDrivingLicense}
+                                 isValid={touched.hasDrivingLicense && !errors.hasDrivingLicense}
+                                 isInvalid={!!errors.hasDrivingLicense}
                     >
                         <option disabled={true}>Do you have car-license?</option>
                         <option value={"true"}>Yes</option>
                         <option value={"false"}>No</option>
                     </Form.Select>
-                    <Form.Control.Feedback type={"invalid"}>{errors.carlicense}</Form.Control.Feedback>
+                    <Form.Control.Feedback type={"invalid"}>{errors.hasDrivingLicense}</Form.Control.Feedback>
                 </Form.Group>
             </Col>
             <Button variant={"outline-warning"} className={"w-100 mt-3"} type={"submit"}>Create account</Button>

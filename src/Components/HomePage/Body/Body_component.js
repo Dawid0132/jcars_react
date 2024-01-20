@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {setLargerThenMd, setLesserThenMd} from "../../../Jwt/Reducers/Funcionality/Actions/Actions";
 
-const url = "{process.env.REACT_APP_API_HOST}/cars";
+const url = `${process.env.REACT_APP_API_HOST}/cars`;
 
 const Body_component = () => {
 

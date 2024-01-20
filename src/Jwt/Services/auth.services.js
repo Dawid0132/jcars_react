@@ -2,10 +2,8 @@ import axios from "axios";
 
 const API_URL = `${process.env.REACT_APP_API_HOST}/api/auth/`;
 
-const register = (firstname, lastname, email, password, phone, address, hasDrivingLicense) => {
-    return axios.post(API_URL + "signup", {
-        firstname, lastname, email, password, phone, address, hasDrivingLicense
-    })
+const register = (data) => {
+    return axios.post(API_URL + "signup", data)
 }
 
 const login = (email, password) => {
