@@ -1,8 +1,6 @@
 import {Col, Container,Row} from "react-bootstrap";
 import Promotions from "../../../Data_jsons/HomePage/promotions.json"
-import Card_Newsletter_bigger_then_md from "./Card_Newsletter_bigger_then_md";
 import {useSelector} from "react-redux";
-import Card_Newsletter_lesser_then_md from "./Card_Newsletter_lesser_then_md";
 
 export const Promotions_component = () => {
 
@@ -31,16 +29,6 @@ export const Promotions_component = () => {
                             <div className={"border-warning border-5 border-bottom w-25"}></div>
                             <div className={"mt-2"}>{item.description}</div>
                         </Col>)
-                    } else {
-                        if (!sizeChanged) {
-                            return (<Card_Newsletter_lesser_then_md
-                                    item={item}
-                                />)
-                        } else {
-                            return (<Card_Newsletter_bigger_then_md
-                                    item={item}
-                                />)
-                        }
                     }
                 })}
             </Row>

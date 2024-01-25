@@ -32,7 +32,7 @@ export const login = (email, password) => (dispatch) => {
                 type: LOGIN_SUCCESS,
                 payload: {user: data}
             })
-            return Promise.resolve();
+            return Promise.resolve(data);
         },
         (error) => {
             const message = (error.response && error.response.data && error.response.data.message || error.message || error.toString())
@@ -45,7 +45,7 @@ export const login = (email, password) => (dispatch) => {
                 type: SET_MESSAGE,
                 payload: message
             })
-            return Promise.reject()
+            return Promise.reject(message);
         }
     )
 }

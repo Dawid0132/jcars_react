@@ -1,4 +1,5 @@
 import {Card, ListGroup} from "react-bootstrap";
+import Car from "../HomePage/Car";
 import {useEffect, useRef, useState} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -147,18 +148,24 @@ const Reservation_Card = (prop) => {
         })
     }, [total])
 
+    return (
+    
 
-    return (<Card style={{
-        backgroundColor: "#3e3e3e", width: '18rem'
-    }} className={"text-white"}>
-        <Card.Img variant={"top"} src={prop.car.imageUrl}/>
+    <Card style={{width: '21rem',
+    alignSelf: 'flex-start',
+    position: 'sticky',
+    top: '90px'
+    }} className={"bg-gray-900 text-white overflow-hidden"}>
+
+    
+        <img class="h-40 object-cover object-center" src={prop.car.imageUrl}/>
         <Card.Body>
             <Card.Title>{`${prop.car.model.brand.name} ${prop.car.model.name}`}
-                <div className={"border-5 border-bottom border-warning w-25"}></div>
             </Card.Title>
             <div className={"d-flex flex-column gap-3 mt-3"}>
                 <DatePicker
                     /*closeOnScroll={true}*/
+                    wrapperClassName=""
                     selected={startDate}
                     onChange={(date) => {
                         setStartDate(date)
@@ -193,74 +200,62 @@ const Reservation_Card = (prop) => {
                 />
             </div>
             <ListGroup className="list-group-flush gap-3 mt-3">
-                <ListGroup.Item style={{
-                    backgroundColor: "#3e3e3e"
-                }}>
-                    <div className={"text-white d-flex flex-row justify-content-between"}>
+                <ListGroup.Item class="bg-gray-900">
+                    <div className={"text-gray-300 d-flex flex-row justify-content-between"}>
                         <div>
                             Doby
                         </div>
-                        <div className={"text-warning"}>
+                        <div className={"text-yellow-600"}>
                             {days > 0 ? days : "1"}
                         </div>
                     </div>
                 </ListGroup.Item>
-                <ListGroup.Item style={{
-                    backgroundColor: "#3e3e3e"
-                }}>
-                    <div className={"text-white d-flex flex-row justify-content-between"}>
+                <ListGroup.Item>
+                    <div className={"text-gray-300 d-flex flex-row justify-content-between"}>
                         <div>
                             Cena za dobę
                         </div>
-                        <div className={"text-warning"}>
+                        <div className={"text-yellow-600"}>
                             {prop.car.rentalPrice} zł
                         </div>
                     </div>
                 </ListGroup.Item>
-                <ListGroup.Item style={{
-                    backgroundColor: "#3e3e3e"
-                }}>
-                    <div className={"text-white d-flex flex-row justify-content-between"}>
+                <ListGroup.Item>
+                    <div className={"text-gray-300 d-flex flex-row justify-content-between"}>
                         <div>
                             Kaucja zwrotna
                         </div>
-                        <div className={"text-warning"}>
+                        <div className={"text-yellow-600"}>
                             {prop.car.deposit} zł
                         </div>
                     </div>
                 </ListGroup.Item>
-                <ListGroup.Item style={{
-                    backgroundColor: "#3e3e3e"
-                }}>
-                    <div className={"text-white d-flex flex-row justify-content-between"}>
+                <ListGroup.Item>
+                    <div className={"text-gray-300 d-flex flex-row justify-content-between"}>
                         <div>
                             Całkowity limit km
                         </div>
-                        <div className={"text-warning"}>
+                        <div className={"text-yellow-600"}>
                             {limit > 0 ? limit : "200"} km
                         </div>
                     </div>
                 </ListGroup.Item>
-                <ListGroup.Item style={{
-                    backgroundColor: "#3e3e3e"
-                }}>
-                    <div className={"text-white d-flex flex-row justify-content-between"}>
+                <ListGroup.Item>
+                    <div className={"text-gray-300 d-flex flex-row justify-content-between"}>
                         <div>
                             Opcje dodatkowe łącznie
                         </div>
-                        <div className={"text-warning"}>
+                        <div className={"text-yellow-600"}>
                             {addsTotal} zł
                         </div>
                     </div>
                 </ListGroup.Item>
-                <ListGroup.Item style={{
-                    backgroundColor: "#3e3e3e"
-                }}>
+                <ListGroup.Item>
                     <div className={"text-white d-flex flex-row justify-content-between"}>
                         <div className={"text-uppercase fw-bold"}>
                             Do zapłaty
                         </div>
-                        <div className={"text-warning"}>
+                        <div className={"text-yellow-400"}>
                             {total > 0 ? total : prop.car.rentalPrice} zł
                         </div>
                     </div>

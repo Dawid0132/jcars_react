@@ -3,7 +3,7 @@ import {Container} from "react-bootstrap";
 
 const Login = () => {
     return (
-        <Container className={"bg-gradient pt-5 pb-5"}>
+        <Container className={"bg-gray-900 pt-16"}>
             <Outlet/>
         </Container>
     )

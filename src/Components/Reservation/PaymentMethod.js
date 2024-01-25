@@ -11,7 +11,7 @@ const PaymentMethod = (prop) => {
             onClick={prop.setpayment}
         >
             <div
-                className={`fw-bold p-3 h-100 w-100 d-flex flex-row justify-content-between unchecked ${prop.isActive ? "checked" : ""}`}>
+                className={`fw-bold bg-gray-800 p-3 h-100 w-100 d-flex flex-row justify-content-between unchecked ${prop.isActive ? "bg-indigo-800" : "bg-gray-800 "}`}>
                 {prop.method.name}
                 <Image
                     src={prop.method.src}

@@ -4,7 +4,7 @@ import NavLinkCars from "./NavLinkCars";
 
 const DisplayAllCars = () => {
 
-    return (<Container className={"text-white mt-5"}>
+    return (<Container className={"text-white pt-16"}>
         <NavLinkCars/>
         <Outlet/>
     </Container>)

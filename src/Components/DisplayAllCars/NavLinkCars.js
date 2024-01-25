@@ -29,7 +29,7 @@ const NavLinkCars = () => {
     }, [])
 
 
-    return (<Nav fill={true} variant={"tabs"}>
+    return (<div class="mt-16"><Nav fill={true} variant={"tabs"}>
         <Nav.Item>
             <Nav.Link href={"/cars"} className={"text-white"}>All</Nav.Link>
         </Nav.Item>
@@ -57,7 +57,7 @@ const NavLinkCars = () => {
                 })}
             </Dropdown.Menu>
         </Dropdown>
-    </Nav>)
+    </Nav></div>)
 }
 
 export default NavLinkCars;

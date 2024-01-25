@@ -32,8 +32,8 @@ const SignUp = () => {
     });
 
 
-    return (<Container className={"w-50 text-white"}>
-        <h1>Signup</h1>
+    return (<Container className={"w-50 text-white mt-16"}>
+        <h1>Stwórz konto</h1>
         <Formik
             validationSchema={signupSchema}
             initialValues={{
@@ -52,7 +52,7 @@ const SignUp = () => {
             <Row>
                 <Col xl={6} md={6} lg={6} sm={12} xs={12}>
                     <Form.Group>
-                        <Form.Label>firstName <span className={"text-danger"}>*</span></Form.Label>
+                        <Form.Label>Imię <span className={"text-danger"}>*</span></Form.Label>
                         <Form.Control name={"firstName"} onChange={handleChange}
                                       value={values.firstName}
                                       placeholder={"Enter your firstName"}
@@ -65,7 +65,7 @@ const SignUp = () => {
                 </Col>
                 <Col xl={6} md={6} lg={6} sm={12} xs={12}>
                     <Form.Group>
-                        <Form.Label>lastName <span className={"text-danger"}>*</span></Form.Label>
+                        <Form.Label>Nazwisko <span className={"text-danger"}>*</span></Form.Label>
                         <Form.Control name={"lastName"} onChange={handleChange}
                                       value={values.lastName}
                                       placeholder={"Enter your lastName"}
@@ -80,7 +80,7 @@ const SignUp = () => {
             <Row className={"mt-2"}>
                 <Col xl={6} md={6} lg={6} sm={12} xs={12}>
                     <Form.Group>
-                        <Form.Label>Email <span className={"text-danger"}>*</span></Form.Label>
+                        <Form.Label>E-mail <span className={"text-danger"}>*</span></Form.Label>
                         <Form.Control name={"email"} onChange={handleChange} value={values.email}
                                       placeholder={"Enter your email"}
                                       isValid={touched.email && !errors.email}
@@ -92,7 +92,7 @@ const SignUp = () => {
                 </Col>
                 <Col>
                     <Form.Group>
-                        <Form.Label>Password <span className={"text-danger"}>*</span></Form.Label>
+                        <Form.Label>Hasło <span className={"text-danger"}>*</span></Form.Label>
                         <Form.Control name={"password"} onChange={handleChange}
                                       value={values.password}
                                       placeholder={"Enter your password"}
@@ -106,34 +106,34 @@ const SignUp = () => {
             </Row>
             <Col className={"mt-2"}>
                 <Form.Group>
-                    <Form.Label>Phone(optional)</Form.Label>
+                    <Form.Label>Telefon (opcjonalnie)</Form.Label>
                     <Form.Control name={"phone"} onChange={handleChange} value={values.phone}
                                   placeholder={"Enter your phone number"}/>
                 </Form.Group>
             </Col>
             <Col className={"mt-2"}>
                 <Form.Group>
-                    <Form.Label>Address(optional)</Form.Label>
+                    <Form.Label>Adres (opcjonalnie)</Form.Label>
                     <Form.Control name={"address"} onChange={handleChange} value={values.address}
                                   placeholder={"Enter your address"}/>
                 </Form.Group>
             </Col>
             <Col className={"mt-2"} xl={6} lg={6} md={6}>
                 <Form.Group>
-                    <Form.Label>Car-license <span className={"text-danger"}>*</span></Form.Label>
+                    <Form.Label>Prawo jazdy <span className={"text-danger"}>*</span></Form.Label>
                     <Form.Select name={"hasDrivingLicense"} onChange={handleChange}
                                  value={values.hasDrivingLicense}
                                  isValid={touched.hasDrivingLicense && !errors.hasDrivingLicense}
                                  isInvalid={!!errors.hasDrivingLicense}
                     >
-                        <option disabled={true}>Do you have car-license?</option>
-                        <option value={"true"}>Yes</option>
-                        <option value={"false"}>No</option>
+                        <option disabled={true}>Czy posiadasz prawo jazdy?</option>
+                        <option value={"true"}>Tak</option>
+                        <option value={"false"}>Nie</option>
                     </Form.Select>
                     <Form.Control.Feedback type={"invalid"}>{errors.hasDrivingLicense}</Form.Control.Feedback>
                 </Form.Group>
             </Col>
-            <Button variant={"outline-warning"} className={"w-100 mt-3"} type={"submit"}>Create account</Button>
+            <button type="submit" class="flex-none mt-4 w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Create account</button>
         </Form>)}
         </Formik>
     </Container>)

@@ -6,6 +6,7 @@ import {useState} from "react";
 import {login} from "../../Jwt/Actions/auth";
 import {Navigate} from "react-router"
 import Loading from "../Loading";
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
 
@@ -29,10 +30,11 @@ const SignIn = () => {
         return <Loading/>
     }
 
-    return (<Container className={"text-white w-50"}>
+
+    return (<Container className={"text-white w-50 mt-16"}>
         <div className={"d-flex flex-column"}>
-            <h1>Sign in</h1>
-            <p>or <a href={"/login/signup"}>create an account</a></p>
+            <h1>Zaloguj się</h1>
+            <p>lub <a className="underline" href={"/login/signup"}>stwórz konto</a></p>
         </div>
         <Formik
             validationSchema={signInSchema}
@@ -41,16 +43,37 @@ const SignIn = () => {
                 setLoading(true);
                 setTimeout(() => {
                     dispatch(login(values.email, values.password))
-                        .then(() => {
-                            window.location.reload();
+                        .then((x) => {
+                            setLoading(false);
+                            //window.location.reload();
+                            toast.success(x, {
+                                position: "bottom-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "dark"
+                                });
                         })
-                        .catch(() => {
+                        .catch((errorMessage) => {
+                            toast.error(errorMessage, {
+                                position: "bottom-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "dark"
+                                });
                             setLoading(false);
                         })
                 }, 400);
             }}>{({handleSubmit, handleChange, values, touched, errors}) => (<Form onSubmit={handleSubmit}>
             <Form.Group className={"mt-2"}>
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>E-mail</Form.Label>
                 <Form.Control name={"email"} onChange={handleChange} value={values.email} type={"email"}
                               placeholder={"Enter email"}
                               className={"p-2"}
@@ -61,7 +84,7 @@ const SignIn = () => {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
             <Form.Group className={"mt-3"}>
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Hasło</Form.Label>
                 <Form.Control name={"password"} onChange={handleChange} value={values.password} type={"password"}
                               placeholder={"Password"}
                               className={"p-2"}
@@ -71,7 +94,7 @@ const SignIn = () => {
                 <Form.Control.Feedback type={"invalid"}>{errors.password}</Form.Control.Feedback>
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
-            <Button variant={"outline-warning"} className={"mt-3 w-100"} type={"submit"}>Sign in</Button>
+            <button type="submit" className="flex-none mt-4 w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Zaloguj się</button>
         </Form>)}
         </Formik>
     </Container>)

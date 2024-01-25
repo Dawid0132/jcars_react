@@ -46,7 +46,7 @@ const All = () => {
         let foo = 0;
         updatedArray[`${foo}`] = [];
         cars.map((car, index) => {
-            if (index % 5 === 0 && index !== 0) {
+            if (index % 4 === 0 && index !== 0) {
                 foo++;
                 updatedArray[`${foo}`] = [];
             }
@@ -57,7 +57,7 @@ const All = () => {
 
 
     const CreatePages = ({active, setActive}) => {
-        let length = Math.ceil(cars.length / 5);
+        let length = Math.ceil(cars.length / 4);
         const refs = useRef(Array.from({length: length}).map(() => createRef()))
         let items = [];
 
@@ -80,21 +80,43 @@ const All = () => {
         </>)
     }
 
+    return <div className="bg-gray-900 py-3">
+    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <ul
+        role="list"
+        className="mx-auto pl-0 mt-4 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4"
+      >
+                       {pagesOfCards['1'] !== undefined && pagesOfCards[`${active}`].map((car, index) => {
+
+return                 <li key={car.name}>
+<a href={`/reservation/${car.id}`} class="no-underline hover:underline">
+    <img className="aspect-[14/13] w-full rounded-2xl object-cover" src={car.imageUrl} alt="" />
+    <h3 className="mt-6 text-lg font-semibold tracking-tight text-white">{car.model.brand.name} {car.model.name} {car.year}</h3>
+    <p className="text-base text-gray-300">Wynajem: {car.rentalPrice} zł / doba</p>
+    <p className="text-sm text-gray-500">Depozyt: {car.deposit} zł</p>
+</a>
+</li>;
+
+})}
+      </ul>
+      <CreatePages active={active} setActive={setActive}/>
+    </div>
+  </div>;
+
     return (<Container>
         <Row className={"mt-3 gap-3"} xs={1} md={1} lg={1} xl={1}>
             <Row className={"mt-3 gap-3"} xs={1} md={1} lg={1} xl={1}>
                 {pagesOfCards['1'] !== undefined && pagesOfCards[`${active}`].map((car, index) => {
-                    if (!sizeChanged) {
-                        return (<Card_car_lesser_then_md
-                            key={car.id}
-                            car={car}
-                        />)
-                    } else {
-                        return (<Card_car_bigger_then_md
-                            key={car.id}
-                            car={car}
-                        />)
-                    }
+
+                    return                 <li key={car.name}>
+                    <a href={`/reservation/${car.id}`} class="no-underline hover:underline">
+                        <img className="aspect-[14/13] w-full rounded-2xl object-cover" src={car.imageUrl} alt="" />
+                        <h3 className="mt-6 text-lg font-semibold tracking-tight text-white">{car.model.brand.name} {car.model.name} {car.year}</h3>
+                        <p className="text-base text-gray-300">Wynajem: {car.rentalPrice} zł / doba</p>
+                        <p className="text-sm text-gray-500">Depozyt: {car.deposit} zł</p>
+                    </a>
+                    </li>;
+
                 })}
             </Row>
         </Row>
