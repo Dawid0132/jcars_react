@@ -1,13 +1,11 @@
 import './App.css';
 import Navbar_component from "./Components/HomePage/Navbar/Navbar_component"
-import {Outlet, Redirect, redirect, useLocation} from "react-router-dom";
-import Footer_component from "./Components/HomePage/Footer/Footer_component";
+import {Outlet, useLocation} from "react-router-dom";
 import Footer from "./Components/HomePage/footer";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "./Jwt/Actions/auth";
 import EventBus from "./Jwt/Common/EventBus";
-import {Navigate} from "react-router";
 import {clearMessage} from "./Jwt/Actions/message";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

@@ -15,6 +15,7 @@ import CarView from "../HomePage/Car";
 import {register} from "../../Jwt/Actions/auth";
 import {reservation as reservationMethod} from "../../Jwt/Actions/reservation";
 import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
+import {toast} from "react-toastify";
 
 const url = `${process.env.REACT_APP_API_HOST}`;
 
@@ -154,11 +155,30 @@ const Reservation = builder => {
             }} onSubmit={(values) => {
             setTimeout(() => {
                 dispatch(reservationMethod(reservation, addsAll))
-                    .then(() => {
-                        setSuccessfully(true)
+                    .then((x) => {
+                        //window.location.reload();
+                        toast.success(x, {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark"
+                        });
                     })
-                    .catch(() => {
-                        setSuccessfully(false)
+                    .catch((errorMessage) => {
+                        toast.error(errorMessage, {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark"
+                        });
                     })
             }, 400);
         }}>{({handleSubmit, handleChange, values, touched, errors}) => (<Form onSubmit={handleSubmit}>

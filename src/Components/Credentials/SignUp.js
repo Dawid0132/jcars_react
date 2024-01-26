@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {register} from "../../Jwt/Actions/auth";
+import {toast} from "react-toastify";
 
 const SignUp = () => {
 
@@ -41,11 +42,30 @@ const SignUp = () => {
             }} onSubmit={(values) => {
             setTimeout(() => {
                 dispatch(register(values))
-                    .then(() => {
-                        setSuccessfully(true)
+                    .then((x) => {
+                        //window.location.reload();
+                        toast.success(x, {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark"
+                        });
                     })
-                    .catch(() => {
-                        setSuccessfully(false)
+                    .catch((errorMessage) => {
+                        toast.error(errorMessage, {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark"
+                        });
                     })
             }, 400);
         }}>{({handleSubmit, handleChange, values, touched, errors}) => (<Form onSubmit={handleSubmit}>
